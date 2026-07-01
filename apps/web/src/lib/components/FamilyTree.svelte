@@ -41,10 +41,30 @@
 	let scale = $state(0.78);
 	let tx = $state(40);
 	let ty = $state(24);
+	let canvasEl = $state<HTMLDivElement>();
 	let dragging = false;
 	let lastX = 0;
 	let lastY = 0;
 	let lastCentered: string | null = null;
+
+	const pointers = new Map<number, { x: number; y: number }>();
+	let pinchDist = 0;
+	let pinchMidX = 0;
+	let pinchMidY = 0;
+
+	const clampScale = (s: number) => Math.min(1.8, Math.max(0.3, s));
+
+	function zoomAt(next: number, clientX: number, clientY: number) {
+		if (!canvasEl) return;
+		const rect = canvasEl.getBoundingClientRect();
+		const cx = clientX - rect.left;
+		const cy = clientY - rect.top;
+		const worldX = (cx - tx) / scale;
+		const worldY = (cy - ty) / scale;
+		tx = cx - worldX * next;
+		ty = cy - worldY * next;
+		scale = next;
+	}
 
 	$effect(() => {
 		const key = slug ?? '__all__';
@@ -56,28 +76,68 @@
 		}
 	});
 
+	function pinch() {
+		const [a, b] = [...pointers.values()];
+		return {
+			dist: Math.hypot(a.x - b.x, a.y - b.y),
+			midX: (a.x + b.x) / 2,
+			midY: (a.y + b.y) / 2
+		};
+	}
+
 	function onpointerdown(e: PointerEvent) {
-		dragging = true;
-		lastX = e.clientX;
-		lastY = e.clientY;
 		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+		pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+		if (pointers.size === 1) {
+			dragging = true;
+			lastX = e.clientX;
+			lastY = e.clientY;
+		} else if (pointers.size === 2) {
+			dragging = false;
+			const p = pinch();
+			pinchDist = p.dist;
+			pinchMidX = p.midX;
+			pinchMidY = p.midY;
+		}
 	}
 	function onpointermove(e: PointerEvent) {
-		if (!dragging) return;
-		tx += e.clientX - lastX;
-		ty += e.clientY - lastY;
-		lastX = e.clientX;
-		lastY = e.clientY;
+		if (!pointers.has(e.pointerId)) return;
+		pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+		if (pointers.size >= 2) {
+			const p = pinch();
+			if (pinchDist > 0) zoomAt(clampScale((scale * p.dist) / pinchDist), p.midX, p.midY);
+			tx += p.midX - pinchMidX;
+			ty += p.midY - pinchMidY;
+			pinchDist = p.dist;
+			pinchMidX = p.midX;
+			pinchMidY = p.midY;
+		} else if (dragging) {
+			tx += e.clientX - lastX;
+			ty += e.clientY - lastY;
+			lastX = e.clientX;
+			lastY = e.clientY;
+		}
 	}
-	function onpointerup() {
-		dragging = false;
+	function endPointer(e: PointerEvent) {
+		pointers.delete(e.pointerId);
+		if (pointers.size === 1) {
+			const [p] = [...pointers.values()];
+			dragging = true;
+			lastX = p.x;
+			lastY = p.y;
+		} else if (pointers.size === 0) {
+			dragging = false;
+		}
+		if (pointers.size < 2) pinchDist = 0;
 	}
 	function onwheel(e: WheelEvent) {
 		e.preventDefault();
-		scale = Math.min(1.8, Math.max(0.3, scale - e.deltaY * 0.0016));
+		zoomAt(clampScale(scale - e.deltaY * 0.0016), e.clientX, e.clientY);
 	}
 	export function zoom(by: number) {
-		scale = Math.min(1.8, Math.max(0.3, scale + by));
+		if (!canvasEl) return;
+		const rect = canvasEl.getBoundingClientRect();
+		zoomAt(clampScale(scale + by), rect.left + rect.width / 2, rect.top + rect.height / 2);
 	}
 
 	function elbow(l: { fromX: number; fromY: number; toX: number; toY: number }) {
@@ -106,13 +166,15 @@
 		</div>
 	{:else}
 		<div
+			bind:this={canvasEl}
 			class="h-full w-full cursor-grab touch-none select-none active:cursor-grabbing"
 			role="application"
 			aria-label="Family tree canvas"
 			onpointerdown={onpointerdown}
 			onpointermove={onpointermove}
-			onpointerup={onpointerup}
-			onpointerleave={onpointerup}
+			onpointerup={endPointer}
+			onpointercancel={endPointer}
+			onpointerleave={endPointer}
 			onwheel={onwheel}
 		>
 			<div
@@ -194,17 +256,17 @@
 			</div>
 		</div>
 
-		<div class="absolute right-3 bottom-3 z-20 flex flex-col gap-1">
+		<div class="absolute right-3 bottom-3 z-20 flex flex-col gap-1.5">
 			<button
 				type="button"
-				onclick={() => zoom(0.15)}
-				class="h-9 w-9 rounded-sm border border-white/10 bg-ink-soft/80 font-display text-lg text-ash/80 backdrop-blur-sm transition-colors hover:text-gold"
+				onclick={() => zoom(0.2)}
+				class="h-11 w-11 rounded-sm border border-white/10 bg-ink-soft/80 font-display text-xl text-ash/80 backdrop-blur-sm transition-colors hover:text-gold sm:h-9 sm:w-9 sm:text-lg"
 				aria-label="Zoom in">+</button
 			>
 			<button
 				type="button"
-				onclick={() => zoom(-0.15)}
-				class="h-9 w-9 rounded-sm border border-white/10 bg-ink-soft/80 font-display text-lg text-ash/80 backdrop-blur-sm transition-colors hover:text-gold"
+				onclick={() => zoom(-0.2)}
+				class="h-11 w-11 rounded-sm border border-white/10 bg-ink-soft/80 font-display text-xl text-ash/80 backdrop-blur-sm transition-colors hover:text-gold sm:h-9 sm:w-9 sm:text-lg"
 				aria-label="Zoom out">−</button
 			>
 		</div>
