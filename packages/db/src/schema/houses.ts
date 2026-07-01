@@ -44,8 +44,8 @@ export const house = sqliteTable(
     isGreatHouse: integer("is_great_house", { mode: "boolean" }).notNull().default(false),
     summary: text("summary"),
     history: text("history"),
-    bannerPath: text("banner_path"), // /assets/houses/<slug>/banner.webp
-    framePath: text("frame_path"), // /assets/houses/<slug>/frame.webp
+    bannerPath: text("banner_path"), // https://assets.westeros.ar7al.dev/houses/<slug>/banner.webp
+    framePath: text("frame_path"), // https://assets.westeros.ar7al.dev/houses/<slug>/frame.webp
     ...timestamps,
   },
   (table) => [index("house_slug_idx").on(table.slug), index("house_region_idx").on(table.region)],

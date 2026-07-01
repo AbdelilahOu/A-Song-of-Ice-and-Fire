@@ -8,6 +8,7 @@ import { registerRecordTools } from "./tools/records";
 export type WesterosMcpBindings = {
   DB: D1Database;
   ASSETS: R2Bucket;
+  ASSET_PUBLIC_URL: string;
 };
 
 export function createWesterosMcpApp(bindings: WesterosMcpBindings) {
@@ -16,25 +17,12 @@ export function createWesterosMcpApp(bindings: WesterosMcpBindings) {
     version: "0.1.0",
   });
   registerRecordTools(server, bindings.DB);
-  registerAssetTools(server, bindings.ASSETS);
+  registerAssetTools(server, bindings.ASSETS, bindings.ASSET_PUBLIC_URL);
 
   const transport = new StreamableHTTPTransport();
   let isConnected = false;
 
   const app = new Hono();
-
-  app.get("/assets/*", async (c) => {
-    const key = decodeURIComponent(c.req.path.replace(/^\/assets\//, ""));
-    const object = await bindings.ASSETS.get(key);
-    if (!object) {
-      return c.notFound();
-    }
-
-    const headers = new Headers();
-    object.writeHttpMetadata(headers);
-    headers.set("etag", object.httpEtag);
-    return new Response(object.body, { headers });
-  });
 
   app.all("/mcp", async (c) => {
     if (!isConnected) {

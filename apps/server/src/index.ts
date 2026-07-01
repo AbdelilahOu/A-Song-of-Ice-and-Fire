@@ -31,6 +31,7 @@ app.route(
   createWesterosMcpApp({
     DB: env.DB,
     ASSETS: env.ASSETS,
+    ASSET_PUBLIC_URL: env.ASSET_PUBLIC_URL,
   }),
 );
 

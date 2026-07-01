@@ -19,7 +19,16 @@ function decodeBase64(contentBase64: string) {
   return bytes;
 }
 
-export async function uploadAsset(bucket: R2Bucket, input: AssetUploadInput) {
+function assetUrl(assetBaseUrl: string, key: string) {
+  const baseUrl = assetBaseUrl.replace(/\/$/, "");
+  const encodedKey = key
+    .split("/")
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
+  return `${baseUrl}/${encodedKey}`;
+}
+
+export async function uploadAsset(bucket: R2Bucket, assetBaseUrl: string, input: AssetUploadInput) {
   assertSafeKey(input.key);
   const body = decodeBase64(input.contentBase64);
   await bucket.put(input.key, body, {
@@ -32,12 +41,13 @@ export async function uploadAsset(bucket: R2Bucket, input: AssetUploadInput) {
     key: input.key,
     contentType: input.contentType,
     size: body.byteLength,
-    url: `/assets/${input.key}`,
+    url: assetUrl(assetBaseUrl, input.key),
   };
 }
 
 export async function listAssets(
   bucket: R2Bucket,
+  assetBaseUrl: string,
   prefix: string | undefined,
   cursor: string | undefined,
   limit: number,
@@ -54,14 +64,14 @@ export async function listAssets(
       size: object.size,
       uploaded: object.uploaded.toISOString(),
       etag: object.etag,
-      url: `/assets/${object.key}`,
+      url: assetUrl(assetBaseUrl, object.key),
     })),
     cursor: result.truncated ? result.cursor : undefined,
     truncated: result.truncated,
   };
 }
 
-export async function getAssetMetadata(bucket: R2Bucket, key: string) {
+export async function getAssetMetadata(bucket: R2Bucket, assetBaseUrl: string, key: string) {
   assertSafeKey(key);
   const object = await bucket.head(key);
   if (!object) {
@@ -74,7 +84,7 @@ export async function getAssetMetadata(bucket: R2Bucket, key: string) {
     uploaded: object.uploaded.toISOString(),
     etag: object.etag,
     contentType: object.httpMetadata?.contentType,
-    url: `/assets/${object.key}`,
+    url: assetUrl(assetBaseUrl, object.key),
   };
 }
 

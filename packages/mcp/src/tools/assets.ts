@@ -9,7 +9,7 @@ function asText(data: unknown) {
   };
 }
 
-export function registerAssetTools(server: McpServer, bucket: R2Bucket) {
+export function registerAssetTools(server: McpServer, bucket: R2Bucket, assetBaseUrl: string) {
   server.registerTool(
     "upload_asset",
     {
@@ -21,7 +21,7 @@ export function registerAssetTools(server: McpServer, bucket: R2Bucket) {
         contentType: z.string(),
       },
     },
-    async (input) => asText(await uploadAsset(bucket, input)),
+    async (input) => asText(await uploadAsset(bucket, assetBaseUrl, input)),
   );
 
   server.registerTool(
@@ -34,7 +34,8 @@ export function registerAssetTools(server: McpServer, bucket: R2Bucket) {
         limit: z.number().int().min(1).max(500).default(100),
       },
     },
-    async ({ prefix, cursor, limit }) => asText(await listAssets(bucket, prefix, cursor, limit)),
+    async ({ prefix, cursor, limit }) =>
+      asText(await listAssets(bucket, assetBaseUrl, prefix, cursor, limit)),
   );
 
   server.registerTool(
@@ -45,7 +46,7 @@ export function registerAssetTools(server: McpServer, bucket: R2Bucket) {
         key: z.string(),
       },
     },
-    async ({ key }) => asText(await getAssetMetadata(bucket, key)),
+    async ({ key }) => asText(await getAssetMetadata(bucket, assetBaseUrl, key)),
   );
 
   server.registerTool(
