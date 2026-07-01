@@ -10,20 +10,32 @@ config({ path: "../../apps/server/.env" });
 
 const app = await alchemy("GOT-familly-tree");
 
+// Custom domains (owned zone: ar7al.dev). Only attached on deploy; local dev
+// keeps using localhost via the `dev` config below.
+const WEB_DOMAIN = "westeros.ar7al.dev";
+const API_DOMAIN = "api.westeros.ar7al.dev";
+
+const isDev = app.local;
+const WEB_URL = isDev ? "http://localhost:5173" : `https://${WEB_DOMAIN}`;
+const API_URL = isDev ? "http://localhost:3000" : `https://${API_DOMAIN}`;
+
 const db = await D1Database("database", {
+  name: "westeros-db",
   migrationsDir: "../../packages/db/src/migrations",
 });
 
 export const server = await Worker("server", {
+  name: "westeros-api",
   cwd: "../../apps/server",
   entrypoint: "src/index.ts",
   compatibility: "node",
   url: true,
+  ...(isDev ? {} : { domains: [API_DOMAIN] }),
   bindings: {
     DB: db,
-    CORS_ORIGIN: alchemy.env.CORS_ORIGIN!,
+    CORS_ORIGIN: WEB_URL,
     BETTER_AUTH_SECRET: alchemy.secret.env.BETTER_AUTH_SECRET!,
-    BETTER_AUTH_URL: alchemy.env.BETTER_AUTH_URL!,
+    BETTER_AUTH_URL: API_URL,
   },
   dev: {
     port: 3000,
@@ -31,16 +43,18 @@ export const server = await Worker("server", {
 });
 
 export const web = await SvelteKit("web", {
+  name: "westeros-web",
   cwd: "../../apps/web",
+  ...(isDev ? {} : { domains: [WEB_DOMAIN] }),
   bindings: {
-    PUBLIC_SERVER_URL: server.url!,
+    PUBLIC_SERVER_URL: isDev ? server.url! : API_URL,
   },
   dev: {
     domain: "localhost:5173",
   },
 });
 
-console.log(`Web    -> ${web.url}`);
-console.log(`Server -> ${server.url}`);
+console.log(`Web    -> ${isDev ? web.url : `https://${WEB_DOMAIN}`}`);
+console.log(`Server -> ${isDev ? server.url : `https://${API_DOMAIN}`}`);
 
 await app.finalize();

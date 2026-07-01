@@ -1,0 +1,226 @@
+<script lang="ts">
+	import { client } from '$lib/orpc';
+	import { displayName, lifespan } from '$lib/format';
+	import { layoutTree, NODE_W, NODE_H, FRAME_W, FRAME_H } from '$lib/tree-layout';
+
+	type Tree =
+		| Awaited<ReturnType<typeof client.tree.byHouse>>
+		| Awaited<ReturnType<typeof client.tree.all>>;
+
+	type Props = {
+		slug: string | null; // null = all houses
+		selectedMember: string | null;
+		onSelect: (slug: string) => void;
+	};
+	let { slug, selectedMember, onSelect }: Props = $props();
+
+	let tree = $state<Tree>(null);
+	let loading = $state(true);
+
+	$effect(() => {
+		const s = slug;
+		loading = true;
+		const req = s == null ? client.tree.all() : client.tree.byHouse({ slug: s });
+		req
+			.then((r) => {
+				tree = r;
+				loading = false;
+			})
+			.catch(() => {
+				tree = null;
+				loading = false;
+			});
+	});
+
+	let layout = $derived(
+		tree ? layoutTree(tree.nodes, tree.parentEdges, tree.marriageEdges) : null
+	);
+
+	let vw = $state(0);
+	let vh = $state(0);
+	let scale = $state(0.78);
+	let tx = $state(40);
+	let ty = $state(24);
+	let dragging = false;
+	let lastX = 0;
+	let lastY = 0;
+	let lastCentered: string | null = null;
+
+	$effect(() => {
+		const key = slug ?? '__all__';
+		if (layout && vw && lastCentered !== key) {
+			scale = Math.min(0.85, Math.max(0.35, (vw - 80) / layout.width));
+			tx = Math.max(20, (vw - layout.width * scale) / 2);
+			ty = 30;
+			lastCentered = key;
+		}
+	});
+
+	function onpointerdown(e: PointerEvent) {
+		dragging = true;
+		lastX = e.clientX;
+		lastY = e.clientY;
+		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+	}
+	function onpointermove(e: PointerEvent) {
+		if (!dragging) return;
+		tx += e.clientX - lastX;
+		ty += e.clientY - lastY;
+		lastX = e.clientX;
+		lastY = e.clientY;
+	}
+	function onpointerup() {
+		dragging = false;
+	}
+	function onwheel(e: WheelEvent) {
+		e.preventDefault();
+		scale = Math.min(1.8, Math.max(0.3, scale - e.deltaY * 0.0016));
+	}
+	export function zoom(by: number) {
+		scale = Math.min(1.8, Math.max(0.3, scale + by));
+	}
+
+	function elbow(l: { fromX: number; fromY: number; toX: number; toY: number }) {
+		const midY = (l.fromY + l.toY) / 2;
+		return `M ${l.fromX} ${l.fromY} V ${midY} H ${l.toX} V ${l.toY}`;
+	}
+</script>
+
+<div class="relative h-full w-full overflow-hidden" bind:clientWidth={vw} bind:clientHeight={vh}>
+	{#if loading}
+		<div class="flex h-full items-center justify-center">
+			<p class="font-display tracking-[0.2em] text-ash/50 uppercase">Unrolling the lineage...</p>
+		</div>
+	{:else if !tree}
+		<div class="flex h-full items-center justify-center">
+			<p class="text-ash/60">This house could not be found.</p>
+		</div>
+	{:else if !layout || layout.nodes.length === 0}
+		<div class="flex h-full flex-col items-center justify-center gap-3 text-center">
+			<h1 class="font-display text-2xl text-ash uppercase">
+				{tree.house ? `House ${tree.house.name}` : 'Westeros'}
+			</h1>
+			<p class="max-w-sm text-ash/60">
+				No lineage has been recorded yet. The maesters are still at work.
+			</p>
+		</div>
+	{:else}
+		<div
+			class="h-full w-full cursor-grab touch-none select-none active:cursor-grabbing"
+			role="application"
+			aria-label="Family tree canvas"
+			onpointerdown={onpointerdown}
+			onpointermove={onpointermove}
+			onpointerup={onpointerup}
+			onpointerleave={onpointerup}
+			onwheel={onwheel}
+		>
+			<div
+				class="absolute top-0 left-0 origin-top-left"
+				style="width:{layout.width}px; height:{layout.height}px; transform: translate({tx}px, {ty}px) scale({scale});"
+			>
+				<svg
+					class="absolute top-0 left-0 overflow-visible"
+					width={layout.width}
+					height={layout.height}
+				>
+					{#each layout.parentLinks as l, i (i)}
+						<path d={elbow(l)} fill="none" stroke="rgba(159,178,191,0.32)" stroke-width="1.5" />
+					{/each}
+					{#each layout.marriageLinks as m, i (i)}
+						<line
+							x1={m.x1}
+							y1={m.y1}
+							x2={m.x2}
+							y2={m.y2}
+							stroke="rgba(200,162,74,0.5)"
+							stroke-width="2"
+							stroke-dasharray={m.isSecret ? '4 4' : ''}
+						/>
+					{/each}
+				</svg>
+
+				{#each layout.nodes as node (node.id)}
+					<button
+						type="button"
+						onclick={() => onSelect(node.slug)}
+						class="group absolute flex flex-col items-center bg-transparent text-center transition-transform duration-200 hover:scale-[1.05] {selectedMember ===
+						node.slug
+							? 'scale-[1.05]'
+							: ''} {node.inHouse ? '' : 'opacity-75'}"
+						style="left:{node.x}px; top:{node.y}px; width:{NODE_W}px; height:{NODE_H}px;"
+					>
+						<div class="relative" style="width:{FRAME_W}px; height:{FRAME_H}px;">
+							<div class="absolute inset-[14%] overflow-hidden">
+								{#if node.portraitPath}
+									<img src={node.portraitPath} alt="" class="h-full w-full object-cover" />
+								{:else}
+									<div
+										class="flex h-full w-full items-center justify-center bg-ink/60 font-display text-3xl text-ash/25"
+									>
+										{node.name.charAt(0)}
+									</div>
+								{/if}
+							</div>
+							{#if node.house?.framePath ?? tree.house?.framePath}
+								<img
+									src={node.house?.framePath ?? tree.house?.framePath}
+									alt=""
+									class="pointer-events-none relative block h-full w-full object-contain transition-[filter] duration-200 {selectedMember ===
+									node.slug
+										? 'drop-shadow-[0_0_10px_rgba(159,178,191,0.75)]'
+										: 'group-hover:drop-shadow-[0_0_10px_rgba(159,178,191,0.6)]'}"
+								/>
+							{/if}
+						</div>
+						<div class="mt-1 flex flex-col items-center px-1 leading-tight">
+							<div class="flex items-center gap-1">
+								<span
+									class="h-1.5 w-1.5 shrink-0 rounded-full {node.status === 'alive'
+										? 'bg-emerald-400/80'
+										: node.status === 'dead'
+											? 'bg-red-500/70'
+											: 'bg-ash/40'}"
+								></span>
+								<span class="font-display text-xs font-semibold text-ash">{displayName(node)}</span>
+							</div>
+							{#if node.epithet}
+								<div class="truncate text-[10px] text-gold/60 italic">{node.epithet}</div>
+							{/if}
+							<div class="text-[10px] text-ash/45">{lifespan(node.bornYear, node.diedYear)}</div>
+						</div>
+					</button>
+				{/each}
+			</div>
+		</div>
+
+		<div class="absolute right-3 bottom-3 z-20 flex flex-col gap-1">
+			<button
+				type="button"
+				onclick={() => zoom(0.15)}
+				class="h-9 w-9 rounded-sm border border-white/10 bg-ink-soft/80 font-display text-lg text-ash/80 backdrop-blur-sm transition-colors hover:text-gold"
+				aria-label="Zoom in">+</button
+			>
+			<button
+				type="button"
+				onclick={() => zoom(-0.15)}
+				class="h-9 w-9 rounded-sm border border-white/10 bg-ink-soft/80 font-display text-lg text-ash/80 backdrop-blur-sm transition-colors hover:text-gold"
+				aria-label="Zoom out">−</button
+			>
+		</div>
+
+		<div
+			class="pointer-events-none absolute bottom-3 left-3 z-20 hidden rounded-sm border border-white/10 bg-ink-soft/80 px-3 py-2 text-[11px] text-ash/60 backdrop-blur-sm sm:block"
+		>
+			<div class="font-display tracking-[0.2em] text-ash/80 uppercase">
+				{tree.house ? tree.house.name : 'All Houses'}
+			</div>
+			<div class="mt-1 flex items-center gap-2">
+				<span class="inline-block h-px w-5 bg-[rgba(159,178,191,0.6)]"></span> Parent → child
+			</div>
+			<div class="mt-0.5 flex items-center gap-2">
+				<span class="inline-block h-px w-5 bg-[rgba(200,162,74,0.7)]"></span> Marriage
+			</div>
+		</div>
+	{/if}
+</div>

@@ -25,16 +25,16 @@
 
 <div class="relative">
 	{#if $sessionQuery.isPending}
-		<div class="h-8 w-24 animate-pulse rounded bg-neutral-700"></div>
+		<div class="h-8 w-24 animate-pulse rounded-sm bg-white/5"></div>
 	{:else if $sessionQuery.data?.user}
 		{@const user = $sessionQuery.data.user}
 		<div class="flex items-center gap-3">
-			<span class="text-sm text-neutral-300 hidden sm:inline" title={user.email}>
+			<span class="hidden text-sm text-ash/70 sm:inline" title={user.email}>
 				{user.name || user.email?.split('@')[0] || 'User'}
 			</span>
 			<button
 				onclick={handleSignOut}
-				class="rounded px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white transition-colors"
+				class="rounded-sm border border-white/10 px-3 py-1 font-display text-xs tracking-[0.15em] text-ash/80 uppercase transition-colors hover:border-gold/40 hover:text-gold"
 			>
 				Sign Out
 			</button>
@@ -43,7 +43,7 @@
 		<div class="flex items-center gap-2">
 			<button
 				onclick={goToLogin}
-				class="rounded px-3 py-1 text-sm bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
+				class="rounded-sm border border-gold/40 px-3 py-1 font-display text-xs tracking-[0.15em] text-gold-bright uppercase transition-colors hover:border-gold"
 			>
 				Sign In
 			</button>
