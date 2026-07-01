@@ -7,7 +7,6 @@ import { house } from "./houses";
 import { location } from "./locations";
 import { member } from "./members";
 
-// One death record per member, with rich circumstances.
 export const death = sqliteTable(
   "death",
   {
@@ -20,7 +19,7 @@ export const death = sqliteTable(
     locationId: integer("location_id").references(() => location.id, {
       onDelete: "set null",
     }),
-    cause: text("cause"), // "beheading", "poison", "battle", "fire"...
+    cause: text("cause"),
     killerId: integer("killer_id").references((): AnySQLiteColumn => member.id, {
       onDelete: "set null",
     }),
@@ -53,7 +52,6 @@ export const EVENT_TYPE = [
 ] as const;
 export type EventType = (typeof EVENT_TYPE)[number];
 
-// A lightweight timeline backbone tying the chronology together.
 export const event = sqliteTable(
   "event",
   {

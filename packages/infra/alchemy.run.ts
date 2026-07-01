@@ -11,8 +11,6 @@ config({ path: "../../apps/server/.env" });
 
 const app = await alchemy("GOT-familly-tree");
 
-// Custom domains (owned zone: ar7al.dev). Only attached on deploy; local dev
-// keeps using localhost via the `dev` config below.
 const WEB_DOMAIN = "westeros.ar7al.dev";
 const API_DOMAIN = "api.westeros.ar7al.dev";
 const ASSET_DOMAIN = "assets.westeros.ar7al.dev";

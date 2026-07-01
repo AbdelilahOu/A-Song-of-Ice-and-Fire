@@ -17,8 +17,6 @@ const memberCardColumns = {
 } as const;
 
 export const membersRouter = {
-  // Full detail for one member: house, parents, children, marriages, titles,
-  // death, and allegiances — everything the detail dialog needs.
   getBySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .handler(async ({ context, input }) => {

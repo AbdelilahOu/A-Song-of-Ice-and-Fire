@@ -20,7 +20,7 @@ export const war = sqliteTable(
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     slug: text("slug").notNull().unique(),
-    name: text("name").notNull(), // "War of the Five Kings", "Dance of the Dragons"
+    name: text("name").notNull(),
     startYear: integer("start_year"),
     endYear: integer("end_year"),
     description: text("description"),
@@ -38,7 +38,7 @@ export const battle = sqliteTable(
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     slug: text("slug").notNull().unique(),
-    name: text("name").notNull(), // "Battle of the Blackwater"
+    name: text("name").notNull(),
     warId: integer("war_id").references(() => war.id, { onDelete: "set null" }),
     year: integer("year"),
     locationId: integer("location_id").references(() => location.id, {
@@ -46,7 +46,7 @@ export const battle = sqliteTable(
     }),
     description: text("description"),
     outcome: text("outcome"),
-    victorSide: text("victor_side"), // free-text faction/side label
+    victorSide: text("victor_side"),
     ...timestamps,
   },
   (table) => [
@@ -56,8 +56,6 @@ export const battle = sqliteTable(
   ],
 );
 
-// Houses and/or members taking part in a war. Either houseId or memberId may be
-// set (or both, e.g. a member fighting under a house banner).
 export const warParticipant = sqliteTable(
   "war_participant",
   {
@@ -71,9 +69,9 @@ export const warParticipant = sqliteTable(
     memberId: integer("member_id").references(() => member.id, {
       onDelete: "cascade",
     }),
-    side: text("side"), // faction name, e.g. "Blacks" / "Greens"
+    side: text("side"),
     role: text("role", { enum: PARTICIPANT_ROLE }),
-    outcome: text("outcome"), // "victor" | "defeated" | ...
+    outcome: text("outcome"),
     ...timestamps,
   },
   (table) => [

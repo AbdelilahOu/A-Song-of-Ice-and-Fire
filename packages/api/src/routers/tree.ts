@@ -32,7 +32,6 @@ type NodeRow = {
   motherId: number | null;
 };
 
-// Build parent-child and marriage edges from a set of nodes + marriages.
 function buildEdges<T extends NodeRow>(
   nodes: T[],
   marriages: {
@@ -64,8 +63,6 @@ function buildEdges<T extends NodeRow>(
 }
 
 export const treeRouter = {
-  // The whole realm: every member across all houses as one forest of family
-  // trees. Used by /tree (no house selected).
   all: publicProcedure.handler(async ({ context }) => {
     const { db } = context;
     const rows = await db.query.member.findMany({
@@ -78,8 +75,6 @@ export const treeRouter = {
     return { house: null, nodes, parentEdges, marriageEdges };
   }),
 
-  // World view: every house as a node plus the relations between houses. Used by
-  // /tree (no house selected). Includes a member count per house for sizing.
   overview: publicProcedure.handler(async ({ context }) => {
     const { db } = context;
     const houses = await db.query.house.findMany({
@@ -121,9 +116,6 @@ export const treeRouter = {
     };
   }),
 
-  // Graph for one house's family tree: member nodes plus parent-child and
-  // marriage edges. Spouses/parents from other houses are included as nodes so
-  // every edge resolves, each tagged with whether they belong to this house.
   byHouse: publicProcedure
     .input(z.object({ slug: z.string() }))
     .handler(async ({ context, input }) => {
@@ -161,7 +153,6 @@ export const treeRouter = {
           })
         : [];
 
-      // Collect related member ids (parents + spouses) not already in the house.
       const known = new Set(houseMemberIds);
       const relatedIds = new Set<number>();
       const consider = (id: number | null) => {

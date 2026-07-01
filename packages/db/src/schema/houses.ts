@@ -2,13 +2,7 @@ import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 import { timestamps } from "./_helpers";
 
-export const HOUSE_STATUS = [
-  "ruling", // currently holds the Iron Throne
-  "extant", // still exists
-  "extinct", // no living members
-  "exiled", // in exile / stripped of lands
-  "cadet", // a cadet branch of another house
-] as const;
+export const HOUSE_STATUS = ["ruling", "extant", "extinct", "exiled", "cadet"] as const;
 export type HouseStatus = (typeof HOUSE_STATUS)[number];
 
 export const HOUSE_RELATION_TYPE = [
@@ -16,8 +10,8 @@ export const HOUSE_RELATION_TYPE = [
   "rivalry",
   "feud",
   "war",
-  "vassalage", // houseA is a vassal/bannerman of houseB
-  "cadet_branch", // houseA is a cadet branch of houseB
+  "vassalage",
+  "cadet_branch",
   "marriage_pact",
 ] as const;
 export type HouseRelationType = (typeof HOUSE_RELATION_TYPE)[number];
@@ -27,32 +21,27 @@ export const house = sqliteTable(
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     slug: text("slug").notNull().unique(),
-    name: text("name").notNull(), // "Stark"
-    fullName: text("full_name"), // "House Stark of Winterfell"
-    words: text("words"), // "Winter Is Coming"
-    region: text("region"), // "The North"
-    seat: text("seat"), // "Winterfell"
+    name: text("name").notNull(),
+    fullName: text("full_name"),
+    words: text("words"),
+    region: text("region"),
+    seat: text("seat"),
     sigilDescription: text("sigil_description"),
     sigilColors: text("sigil_colors"),
     foundedYear: integer("founded_year"),
-    // Member references intentionally have no DB-level foreign key to avoid a
-    // circular dependency between house <-> member. They are wired for querying
-    // via Drizzle relations in relations.ts.
     founderId: integer("founder_id"),
     currentLordId: integer("current_lord_id"),
     status: text("status", { enum: HOUSE_STATUS }).notNull().default("extant"),
     isGreatHouse: integer("is_great_house", { mode: "boolean" }).notNull().default(false),
     summary: text("summary"),
     history: text("history"),
-    bannerPath: text("banner_path"), // https://assets.westeros.ar7al.dev/houses/<slug>/banner.webp
-    framePath: text("frame_path"), // https://assets.westeros.ar7al.dev/houses/<slug>/frame.webp
+    bannerPath: text("banner_path"),
+    framePath: text("frame_path"),
     ...timestamps,
   },
   (table) => [index("house_slug_idx").on(table.slug), index("house_region_idx").on(table.region)],
 );
 
-// Directional/undirected relations between two houses. For directional kinds
-// (vassalage, cadet_branch) houseA is the subordinate of houseB.
 export const houseRelation = sqliteTable(
   "house_relation",
   {

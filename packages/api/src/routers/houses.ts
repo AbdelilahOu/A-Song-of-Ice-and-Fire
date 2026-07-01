@@ -3,7 +3,6 @@ import { z } from "zod";
 import { publicProcedure } from "../index";
 
 export const housesRouter = {
-  // All houses, lightweight — for the landing page and pickers.
   list: publicProcedure.handler(async ({ context }) => {
     return context.db.query.house.findMany({
       columns: {
@@ -23,7 +22,6 @@ export const housesRouter = {
     });
   }),
 
-  // Full detail for one house: identity + its members + house-to-house relations.
   getBySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .handler(async ({ context, input }) => {

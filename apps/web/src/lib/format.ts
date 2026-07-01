@@ -1,4 +1,3 @@
-// In-world years use the Aegon's Conquest epoch: negative = BC, positive = AC.
 export function formatYear(year: number | null | undefined): string {
   if (year == null) return "Unknown";
   if (year < 0) return `${-year} BC`;

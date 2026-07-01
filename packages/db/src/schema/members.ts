@@ -19,8 +19,6 @@ export const MARRIAGE_STATUS = [
 ] as const;
 export type MarriageStatus = (typeof MARRIAGE_STATUS)[number];
 
-// Non-lineage relations. Parent/child links live on the member row itself
-// (fatherId / motherId); this table captures everything else.
 export const MEMBER_RELATION_TYPE = [
   "sibling",
   "half_sibling",
@@ -36,7 +34,6 @@ export const MEMBER_RELATION_TYPE = [
 ] as const;
 export type MemberRelationType = (typeof MEMBER_RELATION_TYPE)[number];
 
-// A member's affiliation to a house over time (birth house, marriage, service).
 export const ALLEGIANCE_ROLE = [
   "lord",
   "lady",
@@ -55,15 +52,13 @@ export const member = sqliteTable(
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     slug: text("slug").notNull().unique(),
-    name: text("name").notNull(), // common name, e.g. "Ned"
-    fullName: text("full_name"), // "Eddard Stark"
-    surname: text("surname"), // house surname or bastard name (Snow, Sand...)
-    epithet: text("epithet"), // "The Mad", "Kingslayer"
-    // Primary house of birth/allegiance. Nullable for house-less characters.
+    name: text("name").notNull(),
+    fullName: text("full_name"),
+    surname: text("surname"),
+    epithet: text("epithet"),
     houseId: integer("house_id").references(() => house.id, {
       onDelete: "set null",
     }),
-    // Self references for lineage. AnySQLiteColumn breaks the type cycle.
     fatherId: integer("father_id").references((): AnySQLiteColumn => member.id, {
       onDelete: "set null",
     }),
@@ -98,7 +93,7 @@ export const memberTitle = sqliteTable(
     memberId: integer("member_id")
       .notNull()
       .references(() => member.id, { onDelete: "cascade" }),
-    title: text("title").notNull(), // "Lord of Winterfell", "Hand of the King"
+    title: text("title").notNull(),
     startYear: integer("start_year"),
     endYear: integer("end_year"),
     isCurrent: integer("is_current", { mode: "boolean" }).notNull().default(false),

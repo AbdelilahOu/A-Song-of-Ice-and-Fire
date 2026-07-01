@@ -13,6 +13,7 @@
     "check-types": "tsc -b"
   },
   "dependencies": {
+    "@GOT-familly-tree/db": "*",
     "@hono/mcp": "^0.2.4",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "hono": "^4.8.2",

@@ -1,9 +1,10 @@
+import { createDbClient } from "@GOT-familly-tree/db";
 import { StreamableHTTPTransport } from "@hono/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Hono } from "hono";
 
-import { registerAssetTools } from "./tools/assets";
-import { registerRecordTools } from "./tools/records";
+import { registerAssetTools } from "./tools/assets.tools";
+import { registerDataTools } from "./tools/index";
 
 export type WesterosMcpBindings = {
   DB: D1Database;
@@ -16,7 +17,9 @@ export function createWesterosMcpApp(bindings: WesterosMcpBindings) {
     name: "westeros-lineages",
     version: "0.1.0",
   });
-  registerRecordTools(server, bindings.DB);
+
+  const db = createDbClient(bindings.DB);
+  registerDataTools(server, db);
   registerAssetTools(server, bindings.ASSETS, bindings.ASSET_PUBLIC_URL);
 
   const transport = new StreamableHTTPTransport();
