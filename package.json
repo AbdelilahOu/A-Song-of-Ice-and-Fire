@@ -1,0 +1,35 @@
+{
+  "name": "GOT-familly-tree",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "check-types": "turbo run check-types",
+    "dev:web": "turbo run dev -F web",
+    "dev:server": "turbo run dev -F server",
+    "db:generate": "turbo run db:generate -F @GOT-familly-tree/db",
+    "deploy": "turbo run deploy -F @GOT-familly-tree/infra",
+    "destroy": "turbo run destroy -F @GOT-familly-tree/infra",
+    "check": "oxlint && oxfmt --write"
+  },
+  "dependencies": {
+    "@GOT-familly-tree/env": "*",
+    "dotenv": "^17.2.2",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@GOT-familly-tree/config": "*",
+    "@cloudflare/workers-types": "^4.20260621.1",
+    "@types/node": "^22.13.14",
+    "oxfmt": "^0.53.0",
+    "oxlint": "^1.68.0",
+    "turbo": "^2.10.2",
+    "typescript": "^6"
+  },
+  "packageManager": "npm@11.9.0"
+}

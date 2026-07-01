@@ -1,0 +1,29 @@
+{
+  "name": "@GOT-familly-tree/api",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@GOT-familly-tree/auth": "*",
+    "@GOT-familly-tree/db": "*",
+    "@GOT-familly-tree/env": "*",
+    "@orpc/client": "^1.14.6",
+    "@orpc/openapi": "^1.14.6",
+    "@orpc/server": "^1.14.6",
+    "@orpc/zod": "^1.14.6",
+    "dotenv": "^17.2.2",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@GOT-familly-tree/config": "*",
+    "hono": "^4.8.2",
+    "typescript": "^6"
+  }
+}

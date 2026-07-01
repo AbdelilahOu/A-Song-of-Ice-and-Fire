@@ -1,0 +1,28 @@
+{
+  "name": "@GOT-familly-tree/db",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {
+    "db:generate": "drizzle-kit generate"
+  },
+  "dependencies": {
+    "@GOT-familly-tree/env": "*",
+    "@libsql/client": "0.15.15",
+    "dotenv": "^17.2.2",
+    "drizzle-orm": "^0.45.1",
+    "libsql": "0.5.22",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@GOT-familly-tree/config": "*",
+    "drizzle-kit": "^0.31.8",
+    "typescript": "^6"
+  }
+}
