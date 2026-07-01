@@ -658,15 +658,60 @@ const warParticipants: {
   role?: "attacker" | "defender" | "instigator" | "ally" | "commander" | "combatant";
   outcome?: string;
 }[] = [
-  { warSlug: "roberts-rebellion", houseSlug: "stark", side: "Rebels", role: "ally", outcome: "victor" },
-  { warSlug: "roberts-rebellion", houseSlug: "baratheon", side: "Rebels", role: "instigator", outcome: "victor" },
-  { warSlug: "roberts-rebellion", houseSlug: "tully", side: "Rebels", role: "ally", outcome: "victor" },
-  { warSlug: "roberts-rebellion", houseSlug: "arryn", side: "Rebels", role: "ally", outcome: "victor" },
-  { warSlug: "roberts-rebellion", houseSlug: "targaryen", side: "Loyalists", role: "defender", outcome: "defeated" },
+  {
+    warSlug: "roberts-rebellion",
+    houseSlug: "stark",
+    side: "Rebels",
+    role: "ally",
+    outcome: "victor",
+  },
+  {
+    warSlug: "roberts-rebellion",
+    houseSlug: "baratheon",
+    side: "Rebels",
+    role: "instigator",
+    outcome: "victor",
+  },
+  {
+    warSlug: "roberts-rebellion",
+    houseSlug: "tully",
+    side: "Rebels",
+    role: "ally",
+    outcome: "victor",
+  },
+  {
+    warSlug: "roberts-rebellion",
+    houseSlug: "arryn",
+    side: "Rebels",
+    role: "ally",
+    outcome: "victor",
+  },
+  {
+    warSlug: "roberts-rebellion",
+    houseSlug: "targaryen",
+    side: "Loyalists",
+    role: "defender",
+    outcome: "defeated",
+  },
   { warSlug: "war-of-the-five-kings", houseSlug: "stark", side: "The North", role: "combatant" },
-  { warSlug: "war-of-the-five-kings", houseSlug: "lannister", side: "The Crown", role: "combatant" },
-  { warSlug: "war-of-the-five-kings", houseSlug: "baratheon", side: "Stormlands claimants", role: "combatant" },
-  { warSlug: "war-of-the-five-kings", houseSlug: "greyjoy", side: "The Iron Islands", role: "combatant" },
+  {
+    warSlug: "war-of-the-five-kings",
+    houseSlug: "lannister",
+    side: "The Crown",
+    role: "combatant",
+  },
+  {
+    warSlug: "war-of-the-five-kings",
+    houseSlug: "baratheon",
+    side: "Stormlands claimants",
+    role: "combatant",
+  },
+  {
+    warSlug: "war-of-the-five-kings",
+    houseSlug: "greyjoy",
+    side: "The Iron Islands",
+    role: "combatant",
+  },
 ];
 
 const battleParticipants: {
@@ -677,8 +722,21 @@ const battleParticipants: {
   wasCommander?: boolean;
   wasKilled?: boolean;
 }[] = [
-  { battleSlug: "battle-of-the-trident", memberSlug: "robert-baratheon", side: "Rebels", role: "commander", wasCommander: true },
-  { battleSlug: "battle-of-the-trident", memberSlug: "rhaegar-targaryen", side: "Loyalists", role: "commander", wasCommander: true, wasKilled: true },
+  {
+    battleSlug: "battle-of-the-trident",
+    memberSlug: "robert-baratheon",
+    side: "Rebels",
+    role: "commander",
+    wasCommander: true,
+  },
+  {
+    battleSlug: "battle-of-the-trident",
+    memberSlug: "rhaegar-targaryen",
+    side: "Loyalists",
+    role: "commander",
+    wasCommander: true,
+    wasKilled: true,
+  },
 ];
 
 const houseRelations: {
@@ -820,9 +878,7 @@ export async function seedStark(db: Db) {
         name: l.name,
         type: l.type,
         region: l.region,
-        controllingHouseId: l.controllingHouseSlug
-          ? houseId.get(l.controllingHouseSlug)
-          : null,
+        controllingHouseId: l.controllingHouseSlug ? houseId.get(l.controllingHouseSlug) : null,
         description: l.description,
       })
       .returning({ id: location.id, slug: location.slug });

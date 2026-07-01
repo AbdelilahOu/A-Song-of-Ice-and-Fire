@@ -2,6 +2,7 @@ import { createContext } from "@GOT-familly-tree/api/context";
 import { appRouter } from "@GOT-familly-tree/api/routers/index";
 import { createAuth } from "@GOT-familly-tree/auth";
 import { env } from "@GOT-familly-tree/env/server";
+import { createWesterosMcpApp } from "@GOT-familly-tree/mcp";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
 import { onError } from "@orpc/server";
@@ -25,6 +26,13 @@ app.use(
 );
 
 app.on(["POST", "GET"], "/api/auth/*", (c) => createAuth().handler(c.req.raw));
+app.route(
+  "/",
+  createWesterosMcpApp({
+    DB: env.DB,
+    ASSETS: env.ASSETS,
+  }),
+);
 
 export const apiHandler = new OpenAPIHandler(appRouter, {
   plugins: [

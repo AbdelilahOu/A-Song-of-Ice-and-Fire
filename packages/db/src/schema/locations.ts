@@ -24,10 +24,9 @@ export const location = sqliteTable(
     name: text("name").notNull(),
     type: text("type", { enum: LOCATION_TYPE }).notNull().default("other"),
     region: text("region"),
-    controllingHouseId: integer("controlling_house_id").references(
-      () => house.id,
-      { onDelete: "set null" },
-    ),
+    controllingHouseId: integer("controlling_house_id").references(() => house.id, {
+      onDelete: "set null",
+    }),
     description: text("description"),
     ...timestamps,
   },

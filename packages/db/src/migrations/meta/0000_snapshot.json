@@ -103,9 +103,7 @@
       "indexes": {
         "account_userId_idx": {
           "name": "account_userId_idx",
-          "columns": [
-            "user_id"
-          ],
+          "columns": ["user_id"],
           "isUnique": false
         }
       },
@@ -114,12 +112,8 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -192,16 +186,12 @@
       "indexes": {
         "session_token_unique": {
           "name": "session_token_unique",
-          "columns": [
-            "token"
-          ],
+          "columns": ["token"],
           "isUnique": true
         },
         "session_userId_idx": {
           "name": "session_userId_idx",
-          "columns": [
-            "user_id"
-          ],
+          "columns": ["user_id"],
           "isUnique": false
         }
       },
@@ -210,12 +200,8 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -283,9 +269,7 @@
       "indexes": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },
@@ -345,9 +329,7 @@
       "indexes": {
         "verification_identifier_idx": {
           "name": "verification_identifier_idx",
-          "columns": [
-            "identifier"
-          ],
+          "columns": ["identifier"],
           "isUnique": false
         }
       },
@@ -442,30 +424,22 @@
       "indexes": {
         "battle_slug_unique": {
           "name": "battle_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "battle_slug_idx": {
           "name": "battle_slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         },
         "battle_war_idx": {
           "name": "battle_war_idx",
-          "columns": [
-            "war_id"
-          ],
+          "columns": ["war_id"],
           "isUnique": false
         },
         "battle_location_idx": {
           "name": "battle_location_idx",
-          "columns": [
-            "location_id"
-          ],
+          "columns": ["location_id"],
           "isUnique": false
         }
       },
@@ -474,12 +448,8 @@
           "name": "battle_war_id_war_id_fk",
           "tableFrom": "battle",
           "tableTo": "war",
-          "columnsFrom": [
-            "war_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["war_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -487,12 +457,8 @@
           "name": "battle_location_id_location_id_fk",
           "tableFrom": "battle",
           "tableTo": "location",
-          "columnsFrom": [
-            "location_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["location_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -582,23 +548,17 @@
       "indexes": {
         "battle_participant_battle_idx": {
           "name": "battle_participant_battle_idx",
-          "columns": [
-            "battle_id"
-          ],
+          "columns": ["battle_id"],
           "isUnique": false
         },
         "battle_participant_house_idx": {
           "name": "battle_participant_house_idx",
-          "columns": [
-            "house_id"
-          ],
+          "columns": ["house_id"],
           "isUnique": false
         },
         "battle_participant_member_idx": {
           "name": "battle_participant_member_idx",
-          "columns": [
-            "member_id"
-          ],
+          "columns": ["member_id"],
           "isUnique": false
         }
       },
@@ -607,12 +567,8 @@
           "name": "battle_participant_battle_id_battle_id_fk",
           "tableFrom": "battle_participant",
           "tableTo": "battle",
-          "columnsFrom": [
-            "battle_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["battle_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -620,12 +576,8 @@
           "name": "battle_participant_house_id_house_id_fk",
           "tableFrom": "battle_participant",
           "tableTo": "house",
-          "columnsFrom": [
-            "house_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["house_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -633,12 +585,8 @@
           "name": "battle_participant_member_id_member_id_fk",
           "tableFrom": "battle_participant",
           "tableTo": "member",
-          "columnsFrom": [
-            "member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -726,16 +674,12 @@
       "indexes": {
         "war_slug_unique": {
           "name": "war_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "war_slug_idx": {
           "name": "war_slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         }
       },
@@ -744,12 +688,8 @@
           "name": "war_victor_house_id_house_id_fk",
           "tableFrom": "war",
           "tableTo": "house",
-          "columnsFrom": [
-            "victor_house_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["victor_house_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -830,23 +770,17 @@
       "indexes": {
         "war_participant_war_idx": {
           "name": "war_participant_war_idx",
-          "columns": [
-            "war_id"
-          ],
+          "columns": ["war_id"],
           "isUnique": false
         },
         "war_participant_house_idx": {
           "name": "war_participant_house_idx",
-          "columns": [
-            "house_id"
-          ],
+          "columns": ["house_id"],
           "isUnique": false
         },
         "war_participant_member_idx": {
           "name": "war_participant_member_idx",
-          "columns": [
-            "member_id"
-          ],
+          "columns": ["member_id"],
           "isUnique": false
         }
       },
@@ -855,12 +789,8 @@
           "name": "war_participant_war_id_war_id_fk",
           "tableFrom": "war_participant",
           "tableTo": "war",
-          "columnsFrom": [
-            "war_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["war_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -868,12 +798,8 @@
           "name": "war_participant_house_id_house_id_fk",
           "tableFrom": "war_participant",
           "tableTo": "house",
-          "columnsFrom": [
-            "house_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["house_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -881,12 +807,8 @@
           "name": "war_participant_member_id_member_id_fk",
           "tableFrom": "war_participant",
           "tableTo": "member",
-          "columnsFrom": [
-            "member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1004,30 +926,22 @@
       "indexes": {
         "dragon_slug_unique": {
           "name": "dragon_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "dragon_slug_idx": {
           "name": "dragon_slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         },
         "dragon_rider_idx": {
           "name": "dragon_rider_idx",
-          "columns": [
-            "notable_rider_id"
-          ],
+          "columns": ["notable_rider_id"],
           "isUnique": false
         },
         "dragon_status_idx": {
           "name": "dragon_status_idx",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         }
       },
@@ -1036,12 +950,8 @@
           "name": "dragon_notable_rider_id_member_id_fk",
           "tableFrom": "dragon",
           "tableTo": "member",
-          "columnsFrom": [
-            "notable_rider_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["notable_rider_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1049,12 +959,8 @@
           "name": "dragon_killed_in_battle_id_battle_id_fk",
           "tableFrom": "dragon",
           "tableTo": "battle",
-          "columnsFrom": [
-            "killed_in_battle_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["killed_in_battle_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1136,16 +1042,12 @@
       "indexes": {
         "dragon_rider_dragon_idx": {
           "name": "dragon_rider_dragon_idx",
-          "columns": [
-            "dragon_id"
-          ],
+          "columns": ["dragon_id"],
           "isUnique": false
         },
         "dragon_rider_member_idx": {
           "name": "dragon_rider_member_idx",
-          "columns": [
-            "member_id"
-          ],
+          "columns": ["member_id"],
           "isUnique": false
         }
       },
@@ -1154,12 +1056,8 @@
           "name": "dragon_rider_dragon_id_dragon_id_fk",
           "tableFrom": "dragon_rider",
           "tableTo": "dragon",
-          "columnsFrom": [
-            "dragon_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["dragon_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1167,12 +1065,8 @@
           "name": "dragon_rider_member_id_member_id_fk",
           "tableFrom": "dragon_rider",
           "tableTo": "member",
-          "columnsFrom": [
-            "member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1268,30 +1162,22 @@
       "indexes": {
         "death_member_id_unique": {
           "name": "death_member_id_unique",
-          "columns": [
-            "member_id"
-          ],
+          "columns": ["member_id"],
           "isUnique": true
         },
         "death_member_idx": {
           "name": "death_member_idx",
-          "columns": [
-            "member_id"
-          ],
+          "columns": ["member_id"],
           "isUnique": false
         },
         "death_killer_idx": {
           "name": "death_killer_idx",
-          "columns": [
-            "killer_id"
-          ],
+          "columns": ["killer_id"],
           "isUnique": false
         },
         "death_battle_idx": {
           "name": "death_battle_idx",
-          "columns": [
-            "battle_id"
-          ],
+          "columns": ["battle_id"],
           "isUnique": false
         }
       },
@@ -1300,12 +1186,8 @@
           "name": "death_member_id_member_id_fk",
           "tableFrom": "death",
           "tableTo": "member",
-          "columnsFrom": [
-            "member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1313,12 +1195,8 @@
           "name": "death_location_id_location_id_fk",
           "tableFrom": "death",
           "tableTo": "location",
-          "columnsFrom": [
-            "location_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["location_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1326,12 +1204,8 @@
           "name": "death_killer_id_member_id_fk",
           "tableFrom": "death",
           "tableTo": "member",
-          "columnsFrom": [
-            "killer_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["killer_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1339,12 +1213,8 @@
           "name": "death_battle_id_battle_id_fk",
           "tableFrom": "death",
           "tableTo": "battle",
-          "columnsFrom": [
-            "battle_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["battle_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1447,30 +1317,22 @@
       "indexes": {
         "event_slug_unique": {
           "name": "event_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "event_slug_idx": {
           "name": "event_slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         },
         "event_year_idx": {
           "name": "event_year_idx",
-          "columns": [
-            "year"
-          ],
+          "columns": ["year"],
           "isUnique": false
         },
         "event_type_idx": {
           "name": "event_type_idx",
-          "columns": [
-            "type"
-          ],
+          "columns": ["type"],
           "isUnique": false
         }
       },
@@ -1479,12 +1341,8 @@
           "name": "event_location_id_location_id_fk",
           "tableFrom": "event",
           "tableTo": "location",
-          "columnsFrom": [
-            "location_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["location_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1492,12 +1350,8 @@
           "name": "event_war_id_war_id_fk",
           "tableFrom": "event",
           "tableTo": "war",
-          "columnsFrom": [
-            "war_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["war_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1505,12 +1359,8 @@
           "name": "event_battle_id_battle_id_fk",
           "tableFrom": "event",
           "tableTo": "battle",
-          "columnsFrom": [
-            "battle_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["battle_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1584,23 +1434,17 @@
       "indexes": {
         "event_participant_event_idx": {
           "name": "event_participant_event_idx",
-          "columns": [
-            "event_id"
-          ],
+          "columns": ["event_id"],
           "isUnique": false
         },
         "event_participant_member_idx": {
           "name": "event_participant_member_idx",
-          "columns": [
-            "member_id"
-          ],
+          "columns": ["member_id"],
           "isUnique": false
         },
         "event_participant_house_idx": {
           "name": "event_participant_house_idx",
-          "columns": [
-            "house_id"
-          ],
+          "columns": ["house_id"],
           "isUnique": false
         }
       },
@@ -1609,12 +1453,8 @@
           "name": "event_participant_event_id_event_id_fk",
           "tableFrom": "event_participant",
           "tableTo": "event",
-          "columnsFrom": [
-            "event_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["event_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1622,12 +1462,8 @@
           "name": "event_participant_member_id_member_id_fk",
           "tableFrom": "event_participant",
           "tableTo": "member",
-          "columnsFrom": [
-            "member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1635,12 +1471,8 @@
           "name": "event_participant_house_id_house_id_fk",
           "tableFrom": "event_participant",
           "tableTo": "house",
-          "columnsFrom": [
-            "house_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["house_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1800,23 +1632,17 @@
       "indexes": {
         "house_slug_unique": {
           "name": "house_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "house_slug_idx": {
           "name": "house_slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         },
         "house_region_idx": {
           "name": "house_region_idx",
-          "columns": [
-            "region"
-          ],
+          "columns": ["region"],
           "isUnique": false
         }
       },
@@ -1905,23 +1731,17 @@
       "indexes": {
         "house_relation_a_idx": {
           "name": "house_relation_a_idx",
-          "columns": [
-            "house_a_id"
-          ],
+          "columns": ["house_a_id"],
           "isUnique": false
         },
         "house_relation_b_idx": {
           "name": "house_relation_b_idx",
-          "columns": [
-            "house_b_id"
-          ],
+          "columns": ["house_b_id"],
           "isUnique": false
         },
         "house_relation_type_idx": {
           "name": "house_relation_type_idx",
-          "columns": [
-            "type"
-          ],
+          "columns": ["type"],
           "isUnique": false
         }
       },
@@ -1930,12 +1750,8 @@
           "name": "house_relation_house_a_id_house_id_fk",
           "tableFrom": "house_relation",
           "tableTo": "house",
-          "columnsFrom": [
-            "house_a_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["house_a_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1943,12 +1759,8 @@
           "name": "house_relation_house_b_id_house_id_fk",
           "tableFrom": "house_relation",
           "tableTo": "house",
-          "columnsFrom": [
-            "house_b_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["house_b_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2030,30 +1842,22 @@
       "indexes": {
         "location_slug_unique": {
           "name": "location_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "location_slug_idx": {
           "name": "location_slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         },
         "location_house_idx": {
           "name": "location_house_idx",
-          "columns": [
-            "controlling_house_id"
-          ],
+          "columns": ["controlling_house_id"],
           "isUnique": false
         },
         "location_region_idx": {
           "name": "location_region_idx",
-          "columns": [
-            "region"
-          ],
+          "columns": ["region"],
           "isUnique": false
         }
       },
@@ -2062,12 +1866,8 @@
           "name": "location_controlling_house_id_house_id_fk",
           "tableFrom": "location",
           "tableTo": "house",
-          "columnsFrom": [
-            "controlling_house_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["controlling_house_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2157,16 +1957,12 @@
       "indexes": {
         "marriage_spouse_a_idx": {
           "name": "marriage_spouse_a_idx",
-          "columns": [
-            "spouse_a_id"
-          ],
+          "columns": ["spouse_a_id"],
           "isUnique": false
         },
         "marriage_spouse_b_idx": {
           "name": "marriage_spouse_b_idx",
-          "columns": [
-            "spouse_b_id"
-          ],
+          "columns": ["spouse_b_id"],
           "isUnique": false
         }
       },
@@ -2175,12 +1971,8 @@
           "name": "marriage_spouse_a_id_member_id_fk",
           "tableFrom": "marriage",
           "tableTo": "member",
-          "columnsFrom": [
-            "spouse_a_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["spouse_a_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -2188,12 +1980,8 @@
           "name": "marriage_spouse_b_id_member_id_fk",
           "tableFrom": "marriage",
           "tableTo": "member",
-          "columnsFrom": [
-            "spouse_b_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["spouse_b_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2362,44 +2150,32 @@
       "indexes": {
         "member_slug_unique": {
           "name": "member_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "member_slug_idx": {
           "name": "member_slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         },
         "member_house_idx": {
           "name": "member_house_idx",
-          "columns": [
-            "house_id"
-          ],
+          "columns": ["house_id"],
           "isUnique": false
         },
         "member_father_idx": {
           "name": "member_father_idx",
-          "columns": [
-            "father_id"
-          ],
+          "columns": ["father_id"],
           "isUnique": false
         },
         "member_mother_idx": {
           "name": "member_mother_idx",
-          "columns": [
-            "mother_id"
-          ],
+          "columns": ["mother_id"],
           "isUnique": false
         },
         "member_status_idx": {
           "name": "member_status_idx",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         }
       },
@@ -2408,12 +2184,8 @@
           "name": "member_house_id_house_id_fk",
           "tableFrom": "member",
           "tableTo": "house",
-          "columnsFrom": [
-            "house_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["house_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2421,12 +2193,8 @@
           "name": "member_father_id_member_id_fk",
           "tableFrom": "member",
           "tableTo": "member",
-          "columnsFrom": [
-            "father_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["father_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2434,12 +2202,8 @@
           "name": "member_mother_id_member_id_fk",
           "tableFrom": "member",
           "tableTo": "member",
-          "columnsFrom": [
-            "mother_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["mother_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2529,16 +2293,12 @@
       "indexes": {
         "member_allegiance_member_idx": {
           "name": "member_allegiance_member_idx",
-          "columns": [
-            "member_id"
-          ],
+          "columns": ["member_id"],
           "isUnique": false
         },
         "member_allegiance_house_idx": {
           "name": "member_allegiance_house_idx",
-          "columns": [
-            "house_id"
-          ],
+          "columns": ["house_id"],
           "isUnique": false
         }
       },
@@ -2547,12 +2307,8 @@
           "name": "member_allegiance_member_id_member_id_fk",
           "tableFrom": "member_allegiance",
           "tableTo": "member",
-          "columnsFrom": [
-            "member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -2560,12 +2316,8 @@
           "name": "member_allegiance_house_id_house_id_fk",
           "tableFrom": "member_allegiance",
           "tableTo": "house",
-          "columnsFrom": [
-            "house_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["house_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2632,23 +2384,17 @@
       "indexes": {
         "member_relation_from_idx": {
           "name": "member_relation_from_idx",
-          "columns": [
-            "from_member_id"
-          ],
+          "columns": ["from_member_id"],
           "isUnique": false
         },
         "member_relation_to_idx": {
           "name": "member_relation_to_idx",
-          "columns": [
-            "to_member_id"
-          ],
+          "columns": ["to_member_id"],
           "isUnique": false
         },
         "member_relation_type_idx": {
           "name": "member_relation_type_idx",
-          "columns": [
-            "type"
-          ],
+          "columns": ["type"],
           "isUnique": false
         }
       },
@@ -2657,12 +2403,8 @@
           "name": "member_relation_from_member_id_member_id_fk",
           "tableFrom": "member_relation",
           "tableTo": "member",
-          "columnsFrom": [
-            "from_member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["from_member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -2670,12 +2412,8 @@
           "name": "member_relation_to_member_id_member_id_fk",
           "tableFrom": "member_relation",
           "tableTo": "member",
-          "columnsFrom": [
-            "to_member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["to_member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2750,9 +2488,7 @@
       "indexes": {
         "member_title_member_idx": {
           "name": "member_title_member_idx",
-          "columns": [
-            "member_id"
-          ],
+          "columns": ["member_id"],
           "isUnique": false
         }
       },
@@ -2761,12 +2497,8 @@
           "name": "member_title_member_id_member_id_fk",
           "tableFrom": "member_title",
           "tableTo": "member",
-          "columnsFrom": [
-            "member_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["member_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }

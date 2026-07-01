@@ -5,13 +5,7 @@ import { dragon, dragonRider } from "./dragons";
 import { death, event, eventParticipant } from "./events";
 import { house, houseRelation } from "./houses";
 import { location } from "./locations";
-import {
-  marriage,
-  member,
-  memberAllegiance,
-  memberRelation,
-  memberTitle,
-} from "./members";
+import { marriage, member, memberAllegiance, memberRelation, memberTitle } from "./members";
 
 export const houseRelations = relations(house, ({ many }) => ({
   members: many(member, { relationName: "houseMembers" }),
@@ -117,19 +111,16 @@ export const memberRelationRelations = relations(memberRelation, ({ one }) => ({
   }),
 }));
 
-export const memberAllegianceRelations = relations(
-  memberAllegiance,
-  ({ one }) => ({
-    member: one(member, {
-      fields: [memberAllegiance.memberId],
-      references: [member.id],
-    }),
-    house: one(house, {
-      fields: [memberAllegiance.houseId],
-      references: [house.id],
-    }),
+export const memberAllegianceRelations = relations(memberAllegiance, ({ one }) => ({
+  member: one(member, {
+    fields: [memberAllegiance.memberId],
+    references: [member.id],
   }),
-);
+  house: one(house, {
+    fields: [memberAllegiance.houseId],
+    references: [house.id],
+  }),
+}));
 
 export const locationRelations = relations(location, ({ one, many }) => ({
   controllingHouse: one(house, {
@@ -175,23 +166,20 @@ export const warParticipantRelations = relations(warParticipant, ({ one }) => ({
   }),
 }));
 
-export const battleParticipantRelations = relations(
-  battleParticipant,
-  ({ one }) => ({
-    battle: one(battle, {
-      fields: [battleParticipant.battleId],
-      references: [battle.id],
-    }),
-    house: one(house, {
-      fields: [battleParticipant.houseId],
-      references: [house.id],
-    }),
-    member: one(member, {
-      fields: [battleParticipant.memberId],
-      references: [member.id],
-    }),
+export const battleParticipantRelations = relations(battleParticipant, ({ one }) => ({
+  battle: one(battle, {
+    fields: [battleParticipant.battleId],
+    references: [battle.id],
   }),
-);
+  house: one(house, {
+    fields: [battleParticipant.houseId],
+    references: [house.id],
+  }),
+  member: one(member, {
+    fields: [battleParticipant.memberId],
+    references: [member.id],
+  }),
+}));
 
 export const dragonRelations = relations(dragon, ({ one, many }) => ({
   notableRider: one(member, {
@@ -241,20 +229,17 @@ export const eventRelations = relations(event, ({ one, many }) => ({
   participants: many(eventParticipant),
 }));
 
-export const eventParticipantRelations = relations(
-  eventParticipant,
-  ({ one }) => ({
-    event: one(event, {
-      fields: [eventParticipant.eventId],
-      references: [event.id],
-    }),
-    member: one(member, {
-      fields: [eventParticipant.memberId],
-      references: [member.id],
-    }),
-    house: one(house, {
-      fields: [eventParticipant.houseId],
-      references: [house.id],
-    }),
+export const eventParticipantRelations = relations(eventParticipant, ({ one }) => ({
+  event: one(event, {
+    fields: [eventParticipant.eventId],
+    references: [event.id],
   }),
-);
+  member: one(member, {
+    fields: [eventParticipant.memberId],
+    references: [member.id],
+  }),
+  house: one(house, {
+    fields: [eventParticipant.houseId],
+    references: [house.id],
+  }),
+}));

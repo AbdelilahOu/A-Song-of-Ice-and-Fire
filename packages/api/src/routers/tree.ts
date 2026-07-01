@@ -157,10 +157,7 @@ export const treeRouter = {
       const marriages = houseMemberIds.length
         ? await db.query.marriage.findMany({
             where: (mar, { inArray, or }) =>
-              or(
-                inArray(mar.spouseAId, houseMemberIds),
-                inArray(mar.spouseBId, houseMemberIds),
-              ),
+              or(inArray(mar.spouseAId, houseMemberIds), inArray(mar.spouseBId, houseMemberIds)),
           })
         : [];
 
@@ -181,8 +178,7 @@ export const treeRouter = {
 
       const relatedMembers = relatedIds.size
         ? await db.query.member.findMany({
-            where: (m, { inArray }) =>
-              inArray(m.id, Array.from(relatedIds)),
+            where: (m, { inArray }) => inArray(m.id, Array.from(relatedIds)),
             columns: nodeColumns,
             with: { house: { columns: memberHouseCols } },
           })

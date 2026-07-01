@@ -98,12 +98,8 @@ export const battleParticipant = sqliteTable(
     }),
     side: text("side"),
     role: text("role", { enum: PARTICIPANT_ROLE }),
-    wasCommander: integer("was_commander", { mode: "boolean" })
-      .notNull()
-      .default(false),
-    wasKilled: integer("was_killed", { mode: "boolean" })
-      .notNull()
-      .default(false),
+    wasCommander: integer("was_commander", { mode: "boolean" }).notNull().default(false),
+    wasKilled: integer("was_killed", { mode: "boolean" }).notNull().default(false),
     ...timestamps,
   },
   (table) => [

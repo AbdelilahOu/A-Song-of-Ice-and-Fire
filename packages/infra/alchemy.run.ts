@@ -2,6 +2,7 @@ import alchemy from "alchemy";
 import { SvelteKit } from "alchemy/cloudflare";
 import { Worker } from "alchemy/cloudflare";
 import { D1Database } from "alchemy/cloudflare";
+import { R2Bucket } from "alchemy/cloudflare";
 import { config } from "dotenv";
 
 config({ path: "./.env" });
@@ -24,6 +25,10 @@ const db = await D1Database("database", {
   migrationsDir: "../../packages/db/src/migrations",
 });
 
+const assets = await R2Bucket("assets", {
+  name: "westeros-assets",
+});
+
 export const server = await Worker("server", {
   name: "westeros-api",
   cwd: "../../apps/server",
@@ -33,6 +38,7 @@ export const server = await Worker("server", {
   ...(isDev ? {} : { domains: [API_DOMAIN] }),
   bindings: {
     DB: db,
+    ASSETS: assets,
     CORS_ORIGIN: WEB_URL,
     BETTER_AUTH_SECRET: alchemy.secret.env.BETTER_AUTH_SECRET!,
     BETTER_AUTH_URL: API_URL,

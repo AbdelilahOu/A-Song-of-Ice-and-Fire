@@ -72,12 +72,8 @@ export const member = sqliteTable(
     }),
     gender: text("gender", { enum: GENDER }).notNull().default("unknown"),
     status: text("status", { enum: MEMBER_STATUS }).notNull().default("unknown"),
-    isBastard: integer("is_bastard", { mode: "boolean" })
-      .notNull()
-      .default(false),
-    isLegitimized: integer("is_legitimized", { mode: "boolean" })
-      .notNull()
-      .default(false),
+    isBastard: integer("is_bastard", { mode: "boolean" }).notNull().default(false),
+    isLegitimized: integer("is_legitimized", { mode: "boolean" }).notNull().default(false),
     bornYear: integer("born_year"),
     diedYear: integer("died_year"),
     culture: text("culture"),
@@ -105,9 +101,7 @@ export const memberTitle = sqliteTable(
     title: text("title").notNull(), // "Lord of Winterfell", "Hand of the King"
     startYear: integer("start_year"),
     endYear: integer("end_year"),
-    isCurrent: integer("is_current", { mode: "boolean" })
-      .notNull()
-      .default(false),
+    isCurrent: integer("is_current", { mode: "boolean" }).notNull().default(false),
     ...timestamps,
   },
   (table) => [index("member_title_member_idx").on(table.memberId)],
@@ -123,14 +117,10 @@ export const marriage = sqliteTable(
     spouseBId: integer("spouse_b_id")
       .notNull()
       .references(() => member.id, { onDelete: "cascade" }),
-    status: text("status", { enum: MARRIAGE_STATUS })
-      .notNull()
-      .default("married"),
+    status: text("status", { enum: MARRIAGE_STATUS }).notNull().default("married"),
     startYear: integer("start_year"),
     endYear: integer("end_year"),
-    isSecret: integer("is_secret", { mode: "boolean" })
-      .notNull()
-      .default(false),
+    isSecret: integer("is_secret", { mode: "boolean" }).notNull().default(false),
     notes: text("notes"),
     ...timestamps,
   },
@@ -172,9 +162,7 @@ export const memberAllegiance = sqliteTable(
       .notNull()
       .references(() => house.id, { onDelete: "cascade" }),
     role: text("role", { enum: ALLEGIANCE_ROLE }).notNull().default("member"),
-    isCurrent: integer("is_current", { mode: "boolean" })
-      .notNull()
-      .default(true),
+    isCurrent: integer("is_current", { mode: "boolean" }).notNull().default(true),
     startYear: integer("start_year"),
     endYear: integer("end_year"),
     notes: text("notes"),

@@ -113,8 +113,7 @@ export function layoutTree(
   for (const n of rawNodes) {
     if (unitOfMember.has(n.id)) continue;
     const spouse = spouseOf.get(n.id);
-    const members =
-      spouse != null && nodeById.has(spouse) ? [n.id, spouse] : [n.id];
+    const members = spouse != null && nodeById.has(spouse) ? [n.id, spouse] : [n.id];
     members.sort((a, b) => (a === n.id ? -1 : b === n.id ? 1 : 0));
     const unit: Unit = {
       members,
@@ -154,8 +153,7 @@ export function layoutTree(
     .filter((u) => !parentOfUnit.has(u))
     .sort((a, b) => bornYear(a.members[0]) - bornYear(b.members[0]));
 
-  const unitWidth = (u: Unit) =>
-    u.members.length === 2 ? NODE_W * 2 + COUPLE_GAP : NODE_W;
+  const unitWidth = (u: Unit) => (u.members.length === 2 ? NODE_W * 2 + COUPLE_GAP : NODE_W);
 
   const positions = new Map<number, { x: number; y: number; depth: number }>();
 

@@ -41,19 +41,14 @@ export const house = sqliteTable(
     founderId: integer("founder_id"),
     currentLordId: integer("current_lord_id"),
     status: text("status", { enum: HOUSE_STATUS }).notNull().default("extant"),
-    isGreatHouse: integer("is_great_house", { mode: "boolean" })
-      .notNull()
-      .default(false),
+    isGreatHouse: integer("is_great_house", { mode: "boolean" }).notNull().default(false),
     summary: text("summary"),
     history: text("history"),
     bannerPath: text("banner_path"), // /houses/<slug>/banner.png
     framePath: text("frame_path"), // /houses/<slug>/frame.png
     ...timestamps,
   },
-  (table) => [
-    index("house_slug_idx").on(table.slug),
-    index("house_region_idx").on(table.region),
-  ],
+  (table) => [index("house_slug_idx").on(table.slug), index("house_region_idx").on(table.region)],
 );
 
 // Directional/undirected relations between two houses. For directional kinds
@@ -71,9 +66,7 @@ export const houseRelation = sqliteTable(
     type: text("type", { enum: HOUSE_RELATION_TYPE }).notNull(),
     startYear: integer("start_year"),
     endYear: integer("end_year"),
-    isCurrent: integer("is_current", { mode: "boolean" })
-      .notNull()
-      .default(true),
+    isCurrent: integer("is_current", { mode: "boolean" }).notNull().default(true),
     description: text("description"),
     ...timestamps,
   },

@@ -28,9 +28,7 @@ export const death = sqliteTable(
       onDelete: "set null",
     }),
     description: text("description"),
-    isConfirmed: integer("is_confirmed", { mode: "boolean" })
-      .notNull()
-      .default(true),
+    isConfirmed: integer("is_confirmed", { mode: "boolean" }).notNull().default(true),
     ...timestamps,
   },
   (table) => [

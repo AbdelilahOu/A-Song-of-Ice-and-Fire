@@ -1,5 +1,5 @@
 {
-  "name": "@GOT-familly-tree/db",
+  "name": "@GOT-familly-tree/mcp",
   "type": "module",
   "exports": {
     ".": {
@@ -10,19 +10,17 @@
     }
   },
   "scripts": {
-    "db:generate": "drizzle-kit generate"
+    "check-types": "tsc -b"
   },
   "dependencies": {
-    "@GOT-familly-tree/env": "*",
-    "@libsql/client": "0.15.15",
-    "dotenv": "^17.2.2",
-    "drizzle-orm": "^0.45.1",
-    "libsql": "0.5.22",
+    "@hono/mcp": "^0.2.4",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "hono": "^4.8.2",
     "zod": "^4.1.13"
   },
   "devDependencies": {
     "@GOT-familly-tree/config": "*",
-    "drizzle-kit": "^0.31.8",
+    "@cloudflare/workers-types": "^4.20260621.1",
     "typescript": "^6"
   }
 }

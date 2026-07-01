@@ -5,10 +5,7 @@ export function formatYear(year: number | null | undefined): string {
   return `${year} AC`;
 }
 
-export function lifespan(
-  born: number | null | undefined,
-  died: number | null | undefined,
-): string {
+export function lifespan(born: number | null | undefined, died: number | null | undefined): string {
   if (born == null && died == null) return "";
   const b = born == null ? "?" : formatYear(born);
   const d = died == null ? "" : formatYear(died);

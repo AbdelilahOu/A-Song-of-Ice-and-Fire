@@ -12,14 +12,7 @@ export const DRAGON_STATUS = [
 ] as const;
 export type DragonStatus = (typeof DRAGON_STATUS)[number];
 
-export const DRAGON_SIZE = [
-  "hatchling",
-  "small",
-  "medium",
-  "large",
-  "great",
-  "unknown",
-] as const;
+export const DRAGON_SIZE = ["hatchling", "small", "medium", "large", "great", "unknown"] as const;
 export type DragonSize = (typeof DRAGON_SIZE)[number];
 
 export const dragon = sqliteTable(
@@ -37,10 +30,9 @@ export const dragon = sqliteTable(
     notableRiderId: integer("notable_rider_id").references(() => member.id, {
       onDelete: "set null",
     }),
-    killedInBattleId: integer("killed_in_battle_id").references(
-      () => battle.id,
-      { onDelete: "set null" },
-    ),
+    killedInBattleId: integer("killed_in_battle_id").references(() => battle.id, {
+      onDelete: "set null",
+    }),
     description: text("description"),
     fate: text("fate"),
     ...timestamps,
@@ -66,9 +58,7 @@ export const dragonRider = sqliteTable(
       .references(() => member.id, { onDelete: "cascade" }),
     startYear: integer("start_year"),
     endYear: integer("end_year"),
-    isNotable: integer("is_notable", { mode: "boolean" })
-      .notNull()
-      .default(false),
+    isNotable: integer("is_notable", { mode: "boolean" }).notNull().default(false),
     notes: text("notes"),
     ...timestamps,
   },

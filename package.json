@@ -7,14 +7,14 @@
   ],
   "type": "module",
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "set ALCHEMY_TELEMETRY_DISABLED=1&& set DO_NOT_TRACK=1&& turbo run dev",
     "build": "turbo run build",
     "check-types": "turbo run check-types",
     "dev:web": "turbo run dev -F web",
     "dev:server": "turbo run dev -F server",
     "db:generate": "turbo run db:generate -F @GOT-familly-tree/db",
-    "deploy": "turbo run deploy -F @GOT-familly-tree/infra",
-    "destroy": "turbo run destroy -F @GOT-familly-tree/infra",
+    "deploy": "set ALCHEMY_TELEMETRY_DISABLED=1&& set DO_NOT_TRACK=1&& turbo run deploy -F @GOT-familly-tree/infra",
+    "destroy": "set ALCHEMY_TELEMETRY_DISABLED=1&& set DO_NOT_TRACK=1&& turbo run destroy -F @GOT-familly-tree/infra",
     "check": "oxlint && oxfmt --write"
   },
   "dependencies": {
@@ -31,5 +31,5 @@
     "turbo": "^2.10.2",
     "typescript": "^6"
   },
-  "packageManager": "npm@latest"
+  "packageManager": "npm@11.9.0"
 }

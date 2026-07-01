@@ -12,6 +12,7 @@
     "@GOT-familly-tree/auth": "*",
     "@GOT-familly-tree/db": "*",
     "@GOT-familly-tree/env": "*",
+    "@GOT-familly-tree/mcp": "*",
     "@orpc/openapi": "^1.14.6",
     "@orpc/server": "^1.14.6",
     "@orpc/zod": "^1.14.6",
