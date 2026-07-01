@@ -78,7 +78,7 @@
 					title={house.name}
 				>
 					<img
-						src="/houses/{house.slug}/banner.png"
+						src="/assets/houses/{house.slug}/banner.webp"
 						alt="House {house.name} banner"
 						loading="lazy"
 						class="h-full w-full object-cover opacity-70 grayscale-[35%] transition-all duration-500 group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"

@@ -55,9 +55,10 @@ learning value over feature completeness.
 
 - The nine Great Houses are the backbone: Stark, Lannister, Targaryen, Baratheon,
   Tully, Arryn, Tyrell, Martell, Greyjoy. Start with these before any minor houses.
-- House sigils/banners and per-house portrait frames are planned visual assets
-  (generated externally). Expected under `apps/web/static/houses/<house>/`
-  (e.g. `banner.png`, `frame.png`). Confirm the exact path when assets arrive.
+- House sigils/banners and per-house portrait frames are stored in R2 and served
+  through the Worker asset proxy. Use `/assets/houses/<house>/banner.webp` and
+  `/assets/houses/<house>/frame.webp`; do not add large generated images under
+  `apps/web/static/`.
 
 ## Tech stack
 

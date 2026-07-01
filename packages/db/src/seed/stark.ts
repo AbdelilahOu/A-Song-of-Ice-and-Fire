@@ -861,8 +861,8 @@ export async function seedStark(db: Db) {
         status: h.status,
         isGreatHouse: h.isGreatHouse,
         summary: h.summary,
-        bannerPath: `/houses/${h.slug}/banner.png`,
-        framePath: `/houses/${h.slug}/frame.png`,
+        bannerPath: `/assets/houses/${h.slug}/banner.webp`,
+        framePath: `/assets/houses/${h.slug}/frame.webp`,
       })
       .returning({ id: house.id, slug: house.slug });
     houseId.set(row!.slug, row!.id);
