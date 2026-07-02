@@ -26,6 +26,13 @@
 		else u.searchParams.set('view', next);
 		goto(u, { keepFocus: true, noScroll: true });
 	}
+	function setHouse(slug: string) {
+		const u = new URL($page.url);
+		if (slug) u.searchParams.set('house', slug);
+		else u.searchParams.delete('house');
+		u.searchParams.delete('member');
+		goto(u, { keepFocus: true, noScroll: true });
+	}
 	function selectMember(slug: string) {
 		const u = new URL($page.url);
 		u.searchParams.set('member', slug);
@@ -49,8 +56,8 @@
 </svelte:head>
 
 <div class="relative h-full w-full overflow-hidden">
-	<!-- Top controls: view toggle + (tree only) house switcher -->
-	<div class="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-col items-center gap-2 p-3">
+	<!-- Top controls: view toggle + house selector -->
+	<div class="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between gap-3 p-3">
 		<div
 			class="pointer-events-auto flex gap-1 rounded-sm border border-white/10 bg-ink-soft/80 p-1 backdrop-blur-sm"
 		>
@@ -76,41 +83,30 @@
 			</button>
 		</div>
 
-		{#if view === 'tree'}
-			<div
-				class="pointer-events-auto flex w-fit max-w-full gap-1 overflow-x-auto rounded-sm border border-white/10 bg-ink-soft/80 p-1 backdrop-blur-sm"
+		<label class="pointer-events-auto flex max-w-[58vw] flex-col items-end gap-1">
+			<span class="font-display text-[10px] tracking-[0.18em] text-ash/50 uppercase">House</span>
+			<select
+				value={houseSlug ?? ''}
+				onchange={(e) => setHouse(e.currentTarget.value)}
+				class="w-full min-w-40 rounded-sm border border-white/10 bg-ink-soft/90 px-3 py-2 font-display text-xs tracking-[0.15em] text-ash uppercase backdrop-blur-sm transition-colors hover:text-gold focus:border-gold/40 focus:outline-none sm:min-w-56"
 			>
-				<a
-					href="/tree"
-					class="rounded-sm px-3 py-1.5 font-display text-xs tracking-[0.15em] uppercase transition-colors {!houseSlug
-						? 'bg-gold/15 text-gold-bright'
-						: 'text-ash/60 hover:text-gold'}"
-				>
-					All Houses
-				</a>
-				<span class="my-1 w-px bg-white/10"></span>
+				<option value="">All Houses</option>
 				{#each houses as h (h.slug)}
-					<a
-						href={`/tree?house=${h.slug}`}
-						class="rounded-sm px-3 py-1.5 font-display text-xs tracking-[0.15em] uppercase transition-colors {h.slug ===
-						houseSlug
-							? 'bg-gold/15 text-gold-bright'
-							: 'text-ash/60 hover:text-gold'}"
-					>
-						{h.name}
-					</a>
+					<option value={h.slug}>{h.name}</option>
 				{/each}
-			</div>
-		{/if}
+			</select>
+		</label>
 	</div>
 
-	{#if view === 'chronicle'}
-		<Chronicle {selectedMember} onSelect={selectMember} />
-	{:else}
-		{#key houseSlug}
-			<FamilyTree slug={houseSlug} {selectedMember} onSelect={selectMember} />
-		{/key}
-	{/if}
+	<div class="box-border h-full w-full pt-20">
+		{#if view === 'chronicle'}
+			<Chronicle slug={houseSlug} {selectedMember} onSelect={selectMember} />
+		{:else}
+			{#key houseSlug}
+				<FamilyTree slug={houseSlug} {selectedMember} onSelect={selectMember} />
+			{/key}
+		{/if}
+	</div>
 
 	{#if selectedMember}
 		<MemberDialog slug={selectedMember} onSelect={selectMember} onClose={closeMember} />

@@ -6,18 +6,20 @@
 	type Data = Awaited<ReturnType<typeof client.timeline.all>>;
 
 	type Props = {
+		slug: string | null;
 		selectedMember: string | null;
 		onSelect: (slug: string) => void;
 	};
-	let { selectedMember, onSelect }: Props = $props();
+	let { slug, selectedMember, onSelect }: Props = $props();
 
 	let data = $state<Data | null>(null);
 	let loading = $state(true);
 
 	$effect(() => {
+		const houseSlug = slug;
 		loading = true;
 		client.timeline
-			.all()
+			.all({ slug: houseSlug })
 			.then((r) => {
 				data = r;
 				loading = false;
@@ -42,7 +44,7 @@
 		<div class="flex h-full flex-col items-center justify-center gap-3 text-center">
 			<h1 class="font-display text-2xl text-ash uppercase">The Chronicle</h1>
 			<p class="max-w-sm text-ash/60">
-				No dated lives have been recorded yet. The maesters are still at work.
+				No dated lives have been recorded for this view yet. The maesters are still at work.
 			</p>
 		</div>
 	{:else}
@@ -67,7 +69,7 @@
 								x={layout.laneStartX - 8}
 								y={band.y - 4}
 								width={layout.width - layout.laneStartX}
-								height={band.height}
+								height={band.height + 8}
 								fill={band.color}
 								opacity="0.04"
 							/>
@@ -124,7 +126,7 @@
 					{#each layout.bands as band (band.key)}
 						<div
 							class="absolute flex items-center"
-							style="left:0; top:{band.y}px; width:120px; height:{band.height}px;"
+							style="left:0; top:{band.y - 4}px; width:120px; height:{band.height + 8}px;"
 						>
 							<span
 								class="border-l-2 pl-2 font-display text-[11px] font-semibold tracking-[0.12em] uppercase"
