@@ -5,22 +5,29 @@
 
 	type Tree =
 		| Awaited<ReturnType<typeof client.tree.byHouse>>
+		| Awaited<ReturnType<typeof client.tree.byHouses>>
 		| Awaited<ReturnType<typeof client.tree.all>>;
 
 	type Props = {
-		slug: string | null; // null = all houses
+		slugs: string[]; // empty = all houses
+		selectionLabel: string;
 		selectedMember: string | null;
 		onSelect: (slug: string) => void;
 	};
-	let { slug, selectedMember, onSelect }: Props = $props();
+	let { slugs, selectionLabel, selectedMember, onSelect }: Props = $props();
 
 	let tree = $state<Tree>(null);
 	let loading = $state(true);
 
 	$effect(() => {
-		const s = slug;
+		const selectedSlugs = slugs;
 		loading = true;
-		const req = s == null ? client.tree.all() : client.tree.byHouse({ slug: s });
+		const req =
+			selectedSlugs.length === 0
+				? client.tree.all()
+				: selectedSlugs.length === 1
+					? client.tree.byHouse({ slug: selectedSlugs[0] })
+					: client.tree.byHouses({ slugs: selectedSlugs });
 		req
 			.then((r) => {
 				tree = r;
@@ -72,7 +79,7 @@
 	}
 
 	$effect(() => {
-		const key = slug ?? '__all__';
+		const key = slugs.length ? slugs.join('|') : '__all__';
 		if (layout && vw && lastCentered !== key) {
 			scale = Math.min(0.85, Math.max(0.35, (vw - 80) / layout.width));
 			tx = Math.max(20, (vw - layout.width * scale) / 2);
@@ -177,7 +184,7 @@
 	{:else if !layout || layout.nodes.length === 0}
 		<div class="flex h-full flex-col items-center justify-center gap-3 text-center">
 			<h1 class="font-display text-2xl text-ash uppercase">
-				{tree.house ? `House ${tree.house.name}` : 'Westeros'}
+				{tree.house ? `House ${tree.house.name}` : selectionLabel}
 			</h1>
 			<p class="max-w-sm text-ash/60">
 				No lineage has been recorded yet. The maesters are still at work.
@@ -294,7 +301,7 @@
 			class="pointer-events-none absolute bottom-3 left-3 z-20 hidden rounded-sm border border-white/10 bg-ink-soft/80 px-3 py-2 text-[11px] text-ash/60 backdrop-blur-sm sm:block"
 		>
 			<div class="font-display tracking-[0.2em] text-ash/80 uppercase">
-				{tree.house ? tree.house.name : 'All Houses'}
+				{tree.house ? tree.house.name : selectionLabel}
 			</div>
 			<div class="mt-1 flex items-center gap-2">
 				<span class="inline-block h-px w-5 bg-[rgba(159,178,191,0.6)]"></span> Parent → child

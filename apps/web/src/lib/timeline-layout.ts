@@ -63,11 +63,13 @@ export type WarSpan = {
   war: TimelineWarInput;
   x: number;
   w: number;
+  labelY: number;
 };
 
 export type EventMarker = {
   event: TimelineEventInput;
   x: number;
+  labelY: number;
 };
 
 export type TimelineLayout = {
@@ -93,6 +95,8 @@ const PAD_X = 40;
 export const AXIS_H = 46;
 const TOP_PAD = 16;
 const MIN_BAR_W = 30;
+const LABEL_ROW_H = 12;
+const LABEL_GAP = 10;
 
 // House accent colors — cold-leaning where possible to stay in the Stark theme,
 // but distinct enough to read at a glance across the swimlanes.
@@ -120,6 +124,30 @@ function niceStep(span: number): number {
   if (span <= 300) return 25;
   if (span <= 600) return 50;
   return 100;
+}
+
+function labelWidth(label: string): number {
+  return Math.min(190, Math.max(56, label.length * 5.8));
+}
+
+function assignLabelLanes(labels: { key: string; x: number; width: number }[]): {
+  lanes: Map<string, number>;
+  count: number;
+} {
+  const laneEndX: number[] = [];
+  const lanes = new Map<string, number>();
+
+  for (const label of [...labels].sort((a, b) => a.x - b.x)) {
+    let lane = laneEndX.findIndex((end) => label.x >= end + LABEL_GAP);
+    if (lane === -1) {
+      lane = laneEndX.length;
+      laneEndX.push(0);
+    }
+    laneEndX[lane] = label.x + label.width;
+    lanes.set(label.key, lane);
+  }
+
+  return { lanes, count: laneEndX.length };
 }
 
 export function layoutTimeline(
@@ -158,6 +186,33 @@ export function layoutTimeline(
   const laneStartX = PAD_X + BAND_LABEL_W;
   const xOf = (year: number) => laneStartX + (year - minYear) * PX_PER_YEAR;
 
+  const warInputs = wars
+    .filter((w) => w.startYear != null)
+    .map((w) => {
+      const x = xOf(w.startYear!);
+      const end = w.endYear ?? w.startYear!;
+      return { war: w, x, w: Math.max(4, (end - w.startYear!) * PX_PER_YEAR) };
+    });
+
+  const eventInputs = events
+    .filter((e) => e.year != null)
+    .map((e) => ({ event: e, x: xOf(e.year!) }));
+
+  const annotationLanes = assignLabelLanes([
+    ...warInputs.map((w) => ({
+      key: `war:${w.war.id}`,
+      x: w.x + 3,
+      width: labelWidth(w.war.name),
+    })),
+    ...eventInputs.map((e) => ({
+      key: `event:${e.event.id}`,
+      x: e.x + 5,
+      width: labelWidth(e.event.name),
+    })),
+  ]);
+  const annotationH = annotationLanes.count * LABEL_ROW_H;
+  const labelY = (key: string) => AXIS_H + 10 + (annotationLanes.lanes.get(key) ?? 0) * LABEL_ROW_H;
+
   // Group members into house bands, ordered by each house's earliest birth so
   // the oldest lineages sit at the top. Members with no house share one band.
   const groups = new Map<string, TimelineMemberInput[]>();
@@ -176,7 +231,7 @@ export function layoutTimeline(
 
   const bars: MemberBar[] = [];
   const bands: BandRow[] = [];
-  let cursorY = AXIS_H + TOP_PAD;
+  let cursorY = AXIS_H + TOP_PAD + annotationH;
 
   for (const [key, groupMembers] of groupOrder) {
     const sample = groupMembers.find((m) => m.house);
@@ -228,17 +283,15 @@ export function layoutTimeline(
     });
   }
 
-  const warSpans: WarSpan[] = wars
-    .filter((w) => w.startYear != null)
-    .map((w) => {
-      const x = xOf(w.startYear!);
-      const end = w.endYear ?? w.startYear!;
-      return { war: w, x, w: Math.max(4, (end - w.startYear!) * PX_PER_YEAR) };
-    });
+  const warSpans: WarSpan[] = warInputs.map((w) => ({
+    ...w,
+    labelY: labelY(`war:${w.war.id}`),
+  }));
 
-  const eventMarkers: EventMarker[] = events
-    .filter((e) => e.year != null)
-    .map((e) => ({ event: e, x: xOf(e.year!) }));
+  const eventMarkers: EventMarker[] = eventInputs.map((e) => ({
+    ...e,
+    labelY: labelY(`event:${e.event.id}`),
+  }));
 
   const width = xOf(maxYear) + PAD_X;
 

@@ -6,20 +6,20 @@
 	type Data = Awaited<ReturnType<typeof client.timeline.all>>;
 
 	type Props = {
-		slug: string | null;
+		slugs: string[];
 		selectedMember: string | null;
 		onSelect: (slug: string) => void;
 	};
-	let { slug, selectedMember, onSelect }: Props = $props();
+	let { slugs, selectedMember, onSelect }: Props = $props();
 
 	let data = $state<Data | null>(null);
 	let loading = $state(true);
 
 	$effect(() => {
-		const houseSlug = slug;
+		const houseSlugs = slugs;
 		loading = true;
 		client.timeline
-			.all({ slug: houseSlug })
+			.all({ slugs: houseSlugs })
 			.then((r) => {
 				data = r;
 				loading = false;
@@ -116,8 +116,24 @@
 								height={layout.height - layout.axisH - 8}
 								fill="rgba(193,88,79,0.06)"
 							/>
-							<text x={w.x + 3} y={layout.axisH + 6} class="fill-ash/40" style="font-size:9px;"
+							<text x={w.x + 3} y={w.labelY} class="fill-ash/40" style="font-size:9px;"
 								>{w.war.name}</text
+							>
+						{/each}
+
+						<!-- Event markers -->
+						{#each layout.events as e (e.event.id)}
+							<line
+								x1={e.x}
+								y1={layout.axisH - 2}
+								x2={e.x}
+								y2={layout.height - 12}
+								stroke="rgba(200,162,74,0.18)"
+								stroke-width="1"
+							/>
+							<circle cx={e.x} cy={layout.axisH - 4} r="2.5" fill="rgba(200,162,74,0.72)" />
+							<text x={e.x + 5} y={e.labelY} class="fill-gold/55" style="font-size:9px;"
+								>{e.event.name}</text
 							>
 						{/each}
 					</svg>

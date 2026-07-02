@@ -178,4 +178,59 @@ export const treeRouter = {
 
       return { house, nodes, parentEdges, marriageEdges };
     }),
+
+  byHouses: publicProcedure
+    .input(z.object({ slugs: z.array(z.string()).min(1) }))
+    .handler(async ({ context, input }) => {
+      const { db } = context;
+
+      const slugs = [...new Set(input.slugs)];
+      const houses = await db.query.house.findMany({
+        where: (h, { inArray }) => inArray(h.slug, slugs),
+        columns: { id: true },
+      });
+      if (houses.length === 0) {
+        return { house: null, nodes: [], parentEdges: [], marriageEdges: [] };
+      }
+
+      // Fetch broadly, then filter in JS for the same D1 parameter-limit reason
+      // as byHouse. Multi-house selections still need spouse/parent context.
+      const allMembers = await db.query.member.findMany({
+        columns: nodeColumns,
+        with: { house: { columns: memberHouseCols } },
+      });
+      const allMarriages = await db.query.marriage.findMany();
+
+      const houseIds = new Set(houses.map((h) => h.id));
+      const houseMembers = allMembers.filter((m) => m.houseId != null && houseIds.has(m.houseId));
+      const known = new Set(houseMembers.map((m) => m.id));
+
+      const marriages = allMarriages.filter(
+        (mar) => known.has(mar.spouseAId) || known.has(mar.spouseBId),
+      );
+
+      const relatedIds = new Set<number>();
+      const consider = (id: number | null) => {
+        if (id != null && !known.has(id)) relatedIds.add(id);
+      };
+      for (const m of houseMembers) {
+        consider(m.fatherId);
+        consider(m.motherId);
+      }
+      for (const mar of marriages) {
+        consider(mar.spouseAId);
+        consider(mar.spouseBId);
+      }
+
+      const relatedMembers = allMembers.filter((m) => relatedIds.has(m.id));
+
+      const nodes = [
+        ...houseMembers.map((m) => ({ ...m, inHouse: true })),
+        ...relatedMembers.map((m) => ({ ...m, inHouse: false })),
+      ];
+
+      const { parentEdges, marriageEdges } = buildEdges(nodes, marriages);
+
+      return { house: null, nodes, parentEdges, marriageEdges };
+    }),
 };

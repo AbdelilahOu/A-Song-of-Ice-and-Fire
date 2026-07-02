@@ -8,11 +8,21 @@
 
 	type HouseList = Awaited<ReturnType<typeof client.houses.list>>;
 
+	let houses = $state<HouseList>([]);
 	let view = $derived($page.url.searchParams.get('view') === 'chronicle' ? 'chronicle' : 'tree');
-	let houseSlug = $derived($page.url.searchParams.get('house'));
+	let houseSlugs = $derived([...new Set($page.url.searchParams.getAll('house'))]);
+	let selectedHouseNames = $derived(
+		houses.filter((h) => houseSlugs.includes(h.slug)).map((h) => h.name)
+	);
+	let houseSelectionLabel = $derived(
+		houseSlugs.length === 0
+			? 'All Houses'
+			: selectedHouseNames.length === 1
+				? `House ${selectedHouseNames[0]}`
+				: `${selectedHouseNames.length || houseSlugs.length} Houses`
+	);
 	let selectedMember = $derived($page.url.searchParams.get('member'));
 
-	let houses = $state<HouseList>([]);
 	$effect(() => {
 		client.houses
 			.list()
@@ -26,10 +36,10 @@
 		else u.searchParams.set('view', next);
 		goto(u, { keepFocus: true, noScroll: true });
 	}
-	function setHouse(slug: string) {
+	function setHouses(slugs: string[]) {
 		const u = new URL($page.url);
-		if (slug) u.searchParams.set('house', slug);
-		else u.searchParams.delete('house');
+		u.searchParams.delete('house');
+		for (const slug of slugs) u.searchParams.append('house', slug);
 		u.searchParams.delete('member');
 		goto(u, { keepFocus: true, noScroll: true });
 	}
@@ -49,7 +59,7 @@
 	<title
 		>{view === 'chronicle'
 			? 'The Chronicle'
-			: houseSlug
+			: houseSlugs.length
 				? 'The Family Tree'
 				: 'The Great Houses'} — Westeros Lineages</title
 	>
@@ -83,27 +93,31 @@
 			</button>
 		</div>
 
-		<label class="pointer-events-auto flex max-w-[58vw] flex-col items-end gap-1">
-			<span class="font-display text-[10px] tracking-[0.18em] text-ash/50 uppercase">House</span>
+		<label class="pointer-events-auto max-w-[58vw]">
 			<select
-				value={houseSlug ?? ''}
-				onchange={(e) => setHouse(e.currentTarget.value)}
+				multiple
+				size="5"
+				aria-label="Filter houses"
+				onchange={(e) => {
+					const selected = [...e.currentTarget.selectedOptions].map((option) => option.value);
+					setHouses(selected.includes('') ? [] : selected);
+				}}
 				class="w-full min-w-40 rounded-sm border border-white/10 bg-ink-soft/90 px-3 py-2 font-display text-xs tracking-[0.15em] text-ash uppercase backdrop-blur-sm transition-colors hover:text-gold focus:border-gold/40 focus:outline-none sm:min-w-56"
 			>
-				<option value="">All Houses</option>
+				<option value="" selected={houseSlugs.length === 0}>All Houses</option>
 				{#each houses as h (h.slug)}
-					<option value={h.slug}>{h.name}</option>
+					<option value={h.slug} selected={houseSlugs.includes(h.slug)}>{h.name}</option>
 				{/each}
 			</select>
 		</label>
 	</div>
 
-	<div class="box-border h-full w-full pt-20">
+	<div class="box-border h-full w-full pt-44">
 		{#if view === 'chronicle'}
-			<Chronicle slug={houseSlug} {selectedMember} onSelect={selectMember} />
+			<Chronicle slugs={houseSlugs} {selectedMember} onSelect={selectMember} />
 		{:else}
-			{#key houseSlug}
-				<FamilyTree slug={houseSlug} {selectedMember} onSelect={selectMember} />
+			{#key houseSlugs.join('|')}
+				<FamilyTree slugs={houseSlugs} selectionLabel={houseSelectionLabel} {selectedMember} onSelect={selectMember} />
 			{/key}
 		{/if}
 	</div>

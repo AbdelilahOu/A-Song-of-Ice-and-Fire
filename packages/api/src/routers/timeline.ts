@@ -27,24 +27,35 @@ export const timelineRouter = {
   // Everything that can be placed on an absolute-year axis: members with a
   // known birth year, plus the major dated events. Powers the /timeline canvas.
   all: publicProcedure
-    .input(z.object({ slug: z.string().nullable().optional() }).optional())
+    .input(
+      z
+        .object({
+          slug: z.string().nullable().optional(),
+          slugs: z.array(z.string()).optional(),
+        })
+        .optional(),
+    )
     .handler(async ({ context, input }) => {
       const { db } = context;
 
-      const houseSlug = input?.slug ?? null;
-      const house = houseSlug
-        ? await db.query.house.findFirst({
-            where: (h, { eq }) => eq(h.slug, houseSlug),
+      const houseSlugs = [
+        ...new Set(input?.slugs?.length ? input.slugs : input?.slug ? [input.slug] : []),
+      ];
+      const houses = houseSlugs.length
+        ? await db.query.house.findMany({
+            where: (h, { inArray }) => inArray(h.slug, houseSlugs),
             columns: { id: true },
           })
-        : null;
+        : [];
+      const houseIds = houses.map((h) => h.id);
+
       const members = await db.query.member.findMany({
         where:
-          houseSlug && !house
-            ? (m, { eq }) => eq(m.id, -1)
-            : house
-              ? (m, { eq }) => eq(m.houseId, house.id)
-              : undefined,
+          houseSlugs.length > 0
+            ? houseIds.length > 0
+              ? (m, { inArray }) => inArray(m.houseId, houseIds)
+              : (m, { eq }) => eq(m.id, -1)
+            : undefined,
         columns: timelineMemberColumns,
         with: { house: { columns: timelineHouseColumns } },
         orderBy: (m, { asc }) => [asc(m.bornYear)],
