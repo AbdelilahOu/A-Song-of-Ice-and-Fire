@@ -31,20 +31,6 @@
 	let layout = $derived<TimelineLayout | null>(
 		data ? layoutTimeline(data.members, data.events, data.wars) : null
 	);
-
-	// Fixed timeline: the full vertical extent fits the page height; the year
-	// axis is browsed by scrolling horizontally only. No pan or zoom.
-	let vh = $state(0);
-	let scrollEl = $state<HTMLDivElement>();
-
-	let fitScale = $derived(layout && vh ? vh / layout.height : 1);
-
-	// Let a vertical mouse wheel drive horizontal scrolling.
-	function onwheel(e: WheelEvent) {
-		if (!scrollEl || e.deltaY === 0) return;
-		scrollEl.scrollLeft += e.deltaY;
-		e.preventDefault();
-	}
 </script>
 
 <div class="relative h-full w-full overflow-hidden">
@@ -61,17 +47,14 @@
 		</div>
 	{:else}
 		<div
-			bind:this={scrollEl}
-			bind:clientHeight={vh}
-			onwheel={onwheel}
-			class="h-full w-full overflow-x-auto overflow-y-hidden"
+			class="h-full w-full overflow-auto"
 			role="application"
 			aria-label="Chronological timeline"
 		>
-			<div class="relative h-full" style="width:{layout.width * fitScale}px;">
+			<div class="relative" style="width:{layout.width}px; height:{layout.height}px;">
 				<div
 					class="absolute top-0 left-0 origin-top-left"
-					style="width:{layout.width}px; height:{layout.height}px; transform: scale({fitScale});"
+					style="width:{layout.width}px; height:{layout.height}px;"
 				>
 					<svg
 						class="absolute top-0 left-0 overflow-visible"
