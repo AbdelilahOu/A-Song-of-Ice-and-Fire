@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "set ALCHEMY_TELEMETRY_DISABLED=1&& set DO_NOT_TRACK=1&& alchemy dev",
-    "deploy": "set ALCHEMY_TELEMETRY_DISABLED=1&& set DO_NOT_TRACK=1&& alchemy deploy",
+    "deploy": "alchemy deploy",
     "destroy": "set ALCHEMY_TELEMETRY_DISABLED=1&& set DO_NOT_TRACK=1&& alchemy destroy"
   },
   "dependencies": {

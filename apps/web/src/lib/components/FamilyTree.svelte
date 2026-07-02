@@ -45,7 +45,12 @@
 	let dragging = false;
 	let lastX = 0;
 	let lastY = 0;
+	let startX = 0;
+	let startY = 0;
+	let captured = false;
 	let lastCentered: string | null = null;
+
+	const DRAG_THRESHOLD = 5;
 
 	const pointers = new Map<number, { x: number; y: number }>();
 	let pinchDist = 0;
@@ -86,14 +91,18 @@
 	}
 
 	function onpointerdown(e: PointerEvent) {
-		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 		pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 		if (pointers.size === 1) {
+			// Defer pointer capture until the pointer actually moves. Capturing on
+			// press steals the native click from the node buttons, which breaks
+			// tap-to-open on desktop.
 			dragging = true;
-			lastX = e.clientX;
-			lastY = e.clientY;
+			captured = false;
+			startX = lastX = e.clientX;
+			startY = lastY = e.clientY;
 		} else if (pointers.size === 2) {
 			dragging = false;
+			(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 			const p = pinch();
 			pinchDist = p.dist;
 			pinchMidX = p.midX;
@@ -112,6 +121,14 @@
 			pinchMidX = p.midX;
 			pinchMidY = p.midY;
 		} else if (dragging) {
+			if (!captured) {
+				if (Math.hypot(e.clientX - startX, e.clientY - startY) < DRAG_THRESHOLD) return;
+				captured = true;
+				(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+				lastX = e.clientX;
+				lastY = e.clientY;
+				return;
+			}
 			tx += e.clientX - lastX;
 			ty += e.clientY - lastY;
 			lastX = e.clientX;
@@ -123,10 +140,12 @@
 		if (pointers.size === 1) {
 			const [p] = [...pointers.values()];
 			dragging = true;
+			captured = true;
 			lastX = p.x;
 			lastY = p.y;
 		} else if (pointers.size === 0) {
 			dragging = false;
+			captured = false;
 		}
 		if (pointers.size < 2) pinchDist = 0;
 	}

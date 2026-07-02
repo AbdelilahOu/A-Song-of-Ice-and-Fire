@@ -138,22 +138,22 @@ export const treeRouter = {
       });
       if (!house) return null;
 
-      const houseMembers = await db.query.member.findMany({
-        where: (m, { eq }) => eq(m.houseId, house.id),
+      // Fetch members and marriages without large `inArray` lists, then filter
+      // in JS. Cloudflare D1 caps bound parameters at 100 per query, so a house
+      // with many members would otherwise overflow the marriage lookup.
+      const allMembers = await db.query.member.findMany({
         columns: nodeColumns,
         with: { house: { columns: memberHouseCols } },
       });
+      const allMarriages = await db.query.marriage.findMany();
 
-      const houseMemberIds = houseMembers.map((m) => m.id);
+      const houseMembers = allMembers.filter((m) => m.houseId === house.id);
+      const known = new Set(houseMembers.map((m) => m.id));
 
-      const marriages = houseMemberIds.length
-        ? await db.query.marriage.findMany({
-            where: (mar, { inArray, or }) =>
-              or(inArray(mar.spouseAId, houseMemberIds), inArray(mar.spouseBId, houseMemberIds)),
-          })
-        : [];
+      const marriages = allMarriages.filter(
+        (mar) => known.has(mar.spouseAId) || known.has(mar.spouseBId),
+      );
 
-      const known = new Set(houseMemberIds);
       const relatedIds = new Set<number>();
       const consider = (id: number | null) => {
         if (id != null && !known.has(id)) relatedIds.add(id);
@@ -167,13 +167,7 @@ export const treeRouter = {
         consider(mar.spouseBId);
       }
 
-      const relatedMembers = relatedIds.size
-        ? await db.query.member.findMany({
-            where: (m, { inArray }) => inArray(m.id, Array.from(relatedIds)),
-            columns: nodeColumns,
-            with: { house: { columns: memberHouseCols } },
-          })
-        : [];
+      const relatedMembers = allMembers.filter((m) => relatedIds.has(m.id));
 
       const nodes = [
         ...houseMembers.map((m) => ({ ...m, inHouse: true })),

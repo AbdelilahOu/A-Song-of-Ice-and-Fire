@@ -22,22 +22,20 @@ const ASSET_URL = `https://${ASSET_DOMAIN}`;
 
 const db = await D1Database("database", {
   name: "westeros-db",
+  adopt: true,
   migrationsDir: "../../packages/db/src/migrations",
 });
 
 const assets = await R2Bucket("assets", {
   name: "westeros-assets",
-  ...(isDev
-    ? {}
-    : {
-        domains: [
-          {
-            domain: ASSET_DOMAIN,
-            enabled: true,
-            adopt: true,
-          },
-        ],
-      }),
+  adopt: true,
+  domains: [
+    {
+      domain: ASSET_DOMAIN,
+      enabled: true,
+      adopt: true,
+    },
+  ],
 });
 
 export const server = await Worker("server", {
@@ -45,8 +43,9 @@ export const server = await Worker("server", {
   cwd: "../../apps/server",
   entrypoint: "src/index.ts",
   compatibility: "node",
+  adopt: true,
   url: true,
-  ...(isDev ? {} : { domains: [API_DOMAIN] }),
+  domains: [API_DOMAIN],
   bindings: {
     DB: db,
     ASSETS: assets,
@@ -63,7 +62,8 @@ export const server = await Worker("server", {
 export const web = await SvelteKit("web", {
   name: "westeros-web",
   cwd: "../../apps/web",
-  ...(isDev ? {} : { domains: [WEB_DOMAIN] }),
+  adopt: true,
+  domains: [WEB_DOMAIN],
   bindings: {
     PUBLIC_SERVER_URL: isDev ? server.url! : API_URL,
     PUBLIC_ASSET_URL: ASSET_URL,

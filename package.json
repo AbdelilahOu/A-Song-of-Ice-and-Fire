@@ -13,7 +13,7 @@
     "dev:web": "turbo run dev -F web",
     "dev:server": "turbo run dev -F server",
     "db:generate": "turbo run db:generate -F @GOT-familly-tree/db",
-    "deploy": "set ALCHEMY_TELEMETRY_DISABLED=1&& set DO_NOT_TRACK=1&& turbo run deploy -F @GOT-familly-tree/infra",
+    "deploy": "turbo run deploy -F @GOT-familly-tree/infra",
     "destroy": "set ALCHEMY_TELEMETRY_DISABLED=1&& set DO_NOT_TRACK=1&& turbo run destroy -F @GOT-familly-tree/infra",
     "check": "oxlint && oxfmt --write"
   },
