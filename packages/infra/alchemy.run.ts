@@ -15,9 +15,8 @@ const WEB_DOMAIN = "westeros.ar7al.dev";
 const API_DOMAIN = "api.westeros.ar7al.dev";
 const ASSET_DOMAIN = "assets.westeros.ar7al.dev";
 
-const isDev = app.local;
-const WEB_URL = isDev ? "http://localhost:5173" : `https://${WEB_DOMAIN}`;
-const API_URL = isDev ? "http://localhost:3000" : `https://${API_DOMAIN}`;
+const WEB_URL = `https://${WEB_DOMAIN}`;
+const API_URL = `https://${API_DOMAIN}`;
 const ASSET_URL = `https://${ASSET_DOMAIN}`;
 
 const db = await D1Database("database", {
@@ -65,7 +64,7 @@ export const web = await SvelteKit("web", {
   adopt: true,
   domains: [WEB_DOMAIN],
   bindings: {
-    PUBLIC_SERVER_URL: isDev ? server.url! : API_URL,
+    PUBLIC_SERVER_URL: API_URL,
     PUBLIC_ASSET_URL: ASSET_URL,
   },
   dev: {
@@ -73,8 +72,8 @@ export const web = await SvelteKit("web", {
   },
 });
 
-console.log(`Web    -> ${isDev ? web.url : `https://${WEB_DOMAIN}`}`);
-console.log(`Server -> ${isDev ? server.url : `https://${API_DOMAIN}`}`);
+console.log(`Web    -> ${web.url}`);
+console.log(`Server -> ${server.url}`);
 console.log(`Assets -> ${ASSET_URL}`);
 
 await app.finalize();
