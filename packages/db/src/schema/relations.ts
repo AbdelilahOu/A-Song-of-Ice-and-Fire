@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 
+import { achievement } from "./achievements";
 import { battle, battleParticipant, war, warParticipant } from "./conflicts";
 import { dragon, dragonRider } from "./dragons";
 import { death, event, eventParticipant } from "./events";
@@ -63,6 +64,7 @@ export const memberRelations = relations(member, ({ one, many }) => ({
   warParticipations: many(warParticipant),
   battleParticipations: many(battleParticipant),
   eventParticipations: many(eventParticipant),
+  achievements: many(achievement),
 }));
 
 export const houseRelationRelations = relations(houseRelation, ({ one }) => ({
@@ -193,6 +195,18 @@ export const dragonRelations = relations(dragon, ({ one, many }) => ({
     relationName: "dragonKilledInBattle",
   }),
   riders: many(dragonRider),
+  achievements: many(achievement),
+}));
+
+export const achievementRelations = relations(achievement, ({ one }) => ({
+  member: one(member, {
+    fields: [achievement.memberId],
+    references: [member.id],
+  }),
+  dragon: one(dragon, {
+    fields: [achievement.dragonId],
+    references: [dragon.id],
+  }),
 }));
 
 export const dragonRiderRelations = relations(dragonRider, ({ one }) => ({

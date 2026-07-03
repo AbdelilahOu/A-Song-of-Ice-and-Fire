@@ -12,6 +12,7 @@ export type DragonRider = typeof dragonRider.$inferSelect;
 export type UpsertDragonInput = {
   slug: string;
   name: string;
+  epithet?: string | null;
   status?: DragonStatus;
   size?: DragonSize;
   color?: string | null;
@@ -20,6 +21,7 @@ export type UpsertDragonInput = {
   notableRiderSlug?: string;
   killedInBattleSlug?: string;
   description?: string | null;
+  notableFor?: string | null;
   fate?: string | null;
 };
 
@@ -30,6 +32,7 @@ export async function upsertDragon(
   const values = {
     slug: input.slug,
     name: input.name,
+    epithet: input.epithet,
     status: input.status,
     size: input.size,
     color: input.color,
@@ -42,6 +45,7 @@ export async function upsertDragon(
       ? await resolveBattleId(db, input.killedInBattleSlug)
       : undefined,
     description: input.description,
+    notableFor: input.notableFor,
     fate: input.fate,
   };
 

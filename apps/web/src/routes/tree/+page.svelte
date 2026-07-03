@@ -5,6 +5,7 @@
 	import FamilyTree from '$lib/components/FamilyTree.svelte';
 	import Chronicle from '$lib/components/Chronicle.svelte';
 	import MemberDialog from '$lib/components/MemberDialog.svelte';
+	import DragonDialog from '$lib/components/DragonDialog.svelte';
 
 	type HouseList = Awaited<ReturnType<typeof client.houses.list>>;
 
@@ -22,6 +23,7 @@
 				: `${selectedHouseNames.length || houseSlugs.length} Houses`
 	);
 	let selectedMember = $derived($page.url.searchParams.get('member'));
+	let selectedDragon = $derived($page.url.searchParams.get('dragon'));
 
 	$effect(() => {
 		client.houses
@@ -46,11 +48,23 @@
 	function selectMember(slug: string) {
 		const u = new URL($page.url);
 		u.searchParams.set('member', slug);
+		u.searchParams.delete('dragon');
 		goto(u, { keepFocus: true, noScroll: true });
 	}
 	function closeMember() {
 		const u = new URL($page.url);
 		u.searchParams.delete('member');
+		goto(u, { keepFocus: true, noScroll: true });
+	}
+	function selectDragon(slug: string) {
+		const u = new URL($page.url);
+		u.searchParams.set('dragon', slug);
+		u.searchParams.delete('member');
+		goto(u, { keepFocus: true, noScroll: true });
+	}
+	function closeDragon() {
+		const u = new URL($page.url);
+		u.searchParams.delete('dragon');
 		goto(u, { keepFocus: true, noScroll: true });
 	}
 </script>
@@ -124,6 +138,15 @@
 	</div>
 
 	{#if selectedMember}
-		<MemberDialog slug={selectedMember} onSelect={selectMember} onClose={closeMember} />
+		<MemberDialog
+			slug={selectedMember}
+			onSelect={selectMember}
+			onSelectDragon={selectDragon}
+			onClose={closeMember}
+		/>
+	{/if}
+
+	{#if selectedDragon}
+		<DragonDialog slug={selectedDragon} onSelectMember={selectMember} onClose={closeDragon} />
 	{/if}
 </div>

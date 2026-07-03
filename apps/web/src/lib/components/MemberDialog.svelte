@@ -1,13 +1,16 @@
 <script lang="ts">
 	import { client } from '$lib/orpc';
 	import { displayName, formatYear, lifespan } from '$lib/format';
+	import { buildMemberTimeline } from '$lib/life-events';
+	import MiniTimeline from './MiniTimeline.svelte';
 
 	type Props = {
 		slug: string;
 		onSelect: (slug: string) => void;
+		onSelectDragon: (slug: string) => void;
 		onClose: () => void;
 	};
-	let { slug, onSelect, onClose }: Props = $props();
+	let { slug, onSelect, onSelectDragon, onClose }: Props = $props();
 
 	let member = $state<Awaited<ReturnType<typeof client.members.getBySlug>> | null>(null);
 	let loading = $state(true);
@@ -46,6 +49,9 @@
 		const seen = new Set<number>();
 		return all.filter((c) => (seen.has(c.id) ? false : (seen.add(c.id), true)));
 	});
+
+	let dragons = $derived(member ? member.ridership.filter((r) => r.dragon) : []);
+	let timeline = $derived(member ? buildMemberTimeline(member) : []);
 
 	const statusLabel: Record<string, string> = {
 		alive: 'Alive',
@@ -162,9 +168,54 @@
 				</div>
 			{/if}
 
+			{#if dragons.length}
+				{@render section('Dragons')}
+				<div class="mb-4 flex flex-wrap gap-2">
+					{#each dragons as r (r.id)}
+						<button
+							type="button"
+							onclick={() => onSelectDragon(r.dragon.slug)}
+							class="group flex items-center gap-2 rounded-sm border border-red-500/20 bg-red-500/5 px-3 py-1.5 text-sm text-ash/85 transition-colors hover:border-red-400/50 hover:text-gold-bright"
+						>
+							<span class="font-display">{r.dragon.name}</span>
+							{#if r.dragon.epithet}
+								<span class="text-xs text-ash/45 italic">{r.dragon.epithet}</span>
+							{/if}
+							{#if r.isNotable}<span class="h-1.5 w-1.5 rounded-full bg-red-400/70"></span>{/if}
+						</button>
+					{/each}
+				</div>
+			{/if}
+
 			{#if member.bio}
 				{@render section('History')}
 				<p class="mb-4 text-sm leading-relaxed text-ash/75">{member.bio}</p>
+			{/if}
+
+			{#if member.achievements.length}
+				{@render section('Achievements')}
+				<ul class="mb-4 space-y-2">
+					{#each member.achievements as a (a.id)}
+						<li class="rounded-sm border border-white/10 bg-ink/50 px-3 py-2">
+							<div class="flex items-baseline justify-between gap-2">
+								<span class="text-sm text-ash/85">{a.title}</span>
+								{#if a.year != null}
+									<span class="shrink-0 font-display text-[11px] text-ash/45">{formatYear(a.year)}</span>
+								{/if}
+							</div>
+							{#if a.description}
+								<p class="mt-0.5 text-xs leading-relaxed text-ash/55">{a.description}</p>
+							{/if}
+						</li>
+					{/each}
+				</ul>
+			{/if}
+
+			{#if timeline.length}
+				{@render section('Chronicle')}
+				<div class="mb-4">
+					<MiniTimeline events={timeline} />
+				</div>
 			{/if}
 
 			{#if member.death}

@@ -1,6 +1,7 @@
 import type { RouterClient } from "@orpc/server";
 
 import { protectedProcedure, publicProcedure } from "../index";
+import { dragonsRouter } from "./dragons";
 import { housesRouter } from "./houses";
 import { mapRouter } from "./map";
 import { membersRouter } from "./members";
@@ -19,6 +20,7 @@ export const appRouter = {
   }),
   houses: housesRouter,
   members: membersRouter,
+  dragons: dragonsRouter,
   tree: treeRouter,
   timeline: timelineRouter,
   map: mapRouter,

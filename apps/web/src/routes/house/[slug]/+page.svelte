@@ -3,11 +3,13 @@
 	import { client } from '$lib/orpc';
 	import { displayName, lifespan } from '$lib/format';
 
-	type House = Awaited<ReturnType<typeof client.houses.getBySlug>>;
+	type House = NonNullable<Awaited<ReturnType<typeof client.houses.getBySlug>>>;
+	type DragonList = Awaited<ReturnType<typeof client.dragons.list>>;
 
-	let slug = $derived($page.params.slug);
-	let house = $state<House>(null);
+	let slug = $derived($page.params.slug ?? '');
+	let house = $state<House | null>(null);
 	let loading = $state(true);
+	let dragons = $state<DragonList>([]);
 
 	$effect(() => {
 		const s = slug;
@@ -23,6 +25,16 @@
 				loading = false;
 			});
 	});
+
+	$effect(() => {
+		client.dragons
+			.list()
+			.then((d) => (dragons = d))
+			.catch(() => {});
+	});
+
+	// Dragons whose notable rider belonged to this house.
+	let houseDragons = $derived(dragons.filter((d) => d.notableRider?.house?.slug === slug));
 
 	let relations = $derived.by(() => {
 		if (!house) return [];
@@ -154,5 +166,41 @@
 				</div>
 			{/if}
 		</section>
-	</div>
-{/if}
+
+			{#if houseDragons.length}
+				<section class="mt-12">
+					<h2 class="mb-4 font-display text-xs tracking-[0.3em] text-gold/60 uppercase">
+						Dragons ({houseDragons.length})
+					</h2>
+					<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+						{#each houseDragons as d (d.id)}
+							<a
+								href={`/tree?house=${house.slug}&dragon=${d.slug}`}
+								class="group rounded-sm border border-red-500/15 bg-red-500/[0.03] p-3 transition-colors hover:border-red-400/40"
+							>
+								<div class="flex items-center justify-between">
+									<span class="font-display text-sm font-semibold text-ash group-hover:text-gold-bright">
+										{d.name}
+									</span>
+									<span
+										class="h-2 w-2 shrink-0 rounded-full {d.status === 'alive'
+											? 'bg-emerald-400/80'
+											: d.status === 'dead'
+												? 'bg-red-500/70'
+												: 'bg-ash/40'}"
+									></span>
+								</div>
+								{#if d.epithet}
+									<div class="truncate text-xs text-gold/60 italic">{d.epithet}</div>
+								{/if}
+								<div class="mt-1 text-xs text-ash/45">{lifespan(d.bornYear, d.diedYear)}</div>
+								{#if d.notableFor}
+									<div class="mt-1 line-clamp-2 text-[11px] text-ash/55">{d.notableFor}</div>
+								{/if}
+							</a>
+						{/each}
+					</div>
+				</section>
+			{/if}
+		</div>
+	{/if}

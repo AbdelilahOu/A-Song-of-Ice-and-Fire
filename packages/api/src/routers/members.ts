@@ -51,6 +51,38 @@ export const membersRouter = {
               battle: { columns: { slug: true, name: true } },
             },
           },
+          ridership: {
+            with: {
+              dragon: {
+                columns: {
+                  id: true,
+                  slug: true,
+                  name: true,
+                  epithet: true,
+                  status: true,
+                  size: true,
+                  color: true,
+                },
+              },
+            },
+            orderBy: (rider, { asc }) => [asc(rider.startYear)],
+          },
+          achievements: {
+            orderBy: (achievement, { asc }) => [asc(achievement.sortOrder), asc(achievement.year)],
+          },
+          eventParticipations: {
+            with: {
+              event: {
+                columns: {
+                  slug: true,
+                  name: true,
+                  type: true,
+                  year: true,
+                  description: true,
+                },
+              },
+            },
+          },
         },
       });
     }),
