@@ -20,6 +20,7 @@
 		<nav class="hidden items-center gap-6 font-display text-xs tracking-[0.2em] uppercase md:flex">
 			<a href="/" class="text-ash/80 transition-colors hover:text-gold">Home</a>
 			<a href="/tree" class="text-ash/80 transition-colors hover:text-gold">The Tree</a>
+			<a href="/map" class="text-ash/80 transition-colors hover:text-gold">The Map</a>
 			<a href="/dashboard" class="text-ash/80 transition-colors hover:text-gold">Dashboard</a>
 			<UserMenu />
 		</nav>
@@ -45,6 +46,9 @@
 			</a>
 			<a href="/tree" onclick={() => (open = false)} class="text-ash/80 transition-colors hover:text-gold">
 				The Tree
+			</a>
+			<a href="/map" onclick={() => (open = false)} class="text-ash/80 transition-colors hover:text-gold">
+				The Map
 			</a>
 			<a
 				href="/dashboard"
