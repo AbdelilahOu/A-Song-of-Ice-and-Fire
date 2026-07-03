@@ -64,6 +64,7 @@
 	let events = $state<EventList>([]);
 	let hovered = $state<string | null>(null);
 	let ready = $state(false);
+	let menuOpen = $state(true);
 
 	// Non-reactive Leaflet handles.
 	let Lmod: typeof import('leaflet');
@@ -331,125 +332,147 @@
 		aria-label="Interactive map of the territories of Westeros"
 	></div>
 
-	<!-- Floating house / events menu -->
+	<!-- Floating house / events menu (collapsible to free up mobile space) -->
 	<div class="pointer-events-none absolute inset-x-0 top-0 z-[1000] flex justify-start p-3">
-		<aside
-			class="pointer-events-auto flex max-h-[calc(100%-1.5rem)] w-72 max-w-[calc(100vw-1.5rem)] flex-col rounded-sm border border-white/10 bg-ink-soft/85 shadow-2xl backdrop-blur-sm"
-		>
-			{#if activeHouse}
-				<div class="border-b border-white/5 p-4">
-					<div class="flex items-start justify-between gap-2">
-						<div class="min-w-0">
-							<p class="font-display text-xs tracking-[0.3em] text-gold/70 uppercase">
-								{activeHouse.region ?? 'Westeros'}
-							</p>
-							<h2 class="mt-1 font-display text-xl font-semibold text-gold-bright uppercase">
-								House {activeHouse.name}
-							</h2>
-						</div>
+		{#if menuOpen}
+			<aside
+				class="pointer-events-auto flex max-h-[calc(100%-1.5rem)] w-72 max-w-[calc(100vw-1.5rem)] flex-col rounded-sm border border-white/10 bg-ink-soft/85 shadow-2xl backdrop-blur-sm"
+			>
+				<div class="flex items-center justify-between gap-2 border-b border-white/5 px-4 py-3">
+					<p class="min-w-0 truncate font-display text-xs tracking-[0.3em] text-ash/60 uppercase">
+						{activeHouse ? `House ${activeHouse.name}` : 'The Great Houses'}
+					</p>
+					<div class="flex shrink-0 items-center gap-3">
 						{#if selectedSlug}
 							<button
 								type="button"
 								onclick={() => setHouse(null)}
-								aria-label="Back to house list"
-								class="shrink-0 font-display text-xs tracking-[0.2em] text-ash/60 uppercase transition-colors hover:text-gold"
+								class="font-display text-xs tracking-[0.2em] text-ash/60 uppercase transition-colors hover:text-gold"
 							>
 								Back
 							</button>
 						{/if}
-					</div>
-					{#if activeHouse.words}
-						<p class="mt-2 font-display text-sm text-gold/80 italic">"{activeHouse.words}"</p>
-					{/if}
-					<div class="mt-4 flex flex-col gap-2">
-						<a
-							href={`/house/${activeHouse.slug}`}
-							class="inline-flex justify-center border border-gold/40 bg-gradient-to-b from-blood/60 to-ink px-4 py-2 font-display text-xs tracking-[0.2em] text-gold-bright uppercase transition-all hover:border-gold"
+						<button
+							type="button"
+							onclick={() => (menuOpen = false)}
+							aria-label="Hide menu"
+							class="font-display text-xs tracking-[0.2em] text-ash/60 uppercase transition-colors hover:text-gold"
 						>
-							View the House
-						</a>
-						<a
-							href={`/tree?house=${activeHouse.slug}`}
-							class="inline-flex justify-center border border-white/10 bg-ink/40 px-4 py-2 font-display text-xs tracking-[0.2em] text-ash uppercase transition-all hover:border-gold/40 hover:text-gold-bright"
-						>
-							Focus the Family Tree
-						</a>
+							Hide
+						</button>
 					</div>
 				</div>
 
-				{#if selectedSlug}
-					<div class="min-h-0 flex-1 overflow-y-auto p-4">
-						<p class="font-display text-xs tracking-[0.3em] text-ash/50 uppercase">
-							Events {events.length ? `(${events.length})` : ''}
-						</p>
-						{#if events.length === 0}
-							<p class="mt-3 text-xs text-ash/40">No recorded events for this house.</p>
-						{:else}
-							<ul class="mt-3 flex flex-col gap-1">
-								{#each events as ev (ev.id)}
+				<div class="min-h-0 flex-1 overflow-y-auto">
+					{#if activeHouse}
+						<div class="border-b border-white/5 p-4">
+							<p class="font-display text-xs tracking-[0.3em] text-gold/70 uppercase">
+								{activeHouse.region ?? 'Westeros'}
+							</p>
+							{#if activeHouse.words}
+								<p class="mt-2 font-display text-sm text-gold/80 italic">"{activeHouse.words}"</p>
+							{/if}
+							<div class="mt-4 flex flex-col gap-2">
+								<a
+									href={`/house/${activeHouse.slug}`}
+									class="inline-flex justify-center border border-gold/40 bg-gradient-to-b from-blood/60 to-ink px-4 py-2 font-display text-xs tracking-[0.2em] text-gold-bright uppercase transition-all hover:border-gold"
+								>
+									View the House
+								</a>
+								<a
+									href={`/tree?house=${activeHouse.slug}`}
+									class="inline-flex justify-center border border-white/10 bg-ink/40 px-4 py-2 font-display text-xs tracking-[0.2em] text-ash uppercase transition-all hover:border-gold/40 hover:text-gold-bright"
+								>
+									Focus the Family Tree
+								</a>
+							</div>
+						</div>
+
+						{#if selectedSlug}
+							<div class="p-4">
+								<p class="font-display text-xs tracking-[0.3em] text-ash/50 uppercase">
+									Events {events.length ? `(${events.length})` : ''}
+								</p>
+								{#if events.length === 0}
+									<p class="mt-3 text-xs text-ash/40">No recorded events for this house.</p>
+								{:else}
+									<ul class="mt-3 flex flex-col gap-1">
+										{#each events as ev (ev.id)}
+											<li>
+												<button
+													type="button"
+													onclick={() => setEvent(ev.slug)}
+													class="w-full rounded-sm px-2 py-1.5 text-left transition-colors hover:bg-white/5 {selectedEventSlug ===
+													ev.slug
+														? 'bg-white/10'
+														: ''}"
+												>
+													<span class="flex items-center gap-2">
+														<span
+															class="h-2 w-2 shrink-0 rounded-full"
+															style={`background:${eventColor(ev.type)}`}
+														></span>
+														<span class="min-w-0 flex-1 truncate text-sm text-ash/80">{ev.name}</span>
+														{#if ev.year != null}
+															<span class="shrink-0 text-xs text-ash/40">{formatYear(ev.year)}</span>
+														{/if}
+													</span>
+													{#if !ev.location}
+														<span class="mt-0.5 block pl-4 text-[10px] text-ash/30 uppercase">
+															approx. location
+														</span>
+													{/if}
+												</button>
+											</li>
+										{/each}
+									</ul>
+									{#if locatedCount < events.length}
+										<p class="mt-3 text-[10px] text-ash/30">
+											{locatedCount} of {events.length} placed precisely; others show near the region.
+										</p>
+									{/if}
+								{/if}
+							</div>
+						{/if}
+					{:else}
+						<div class="p-4">
+							<p class="font-display text-xs tracking-[0.3em] text-ash/50 uppercase">
+								The Great Houses
+							</p>
+							<ul class="mt-3 flex flex-col gap-0.5">
+								{#each houses.filter((h) => HOUSE_COLORS[h.slug]) as h (h.slug)}
 									<li>
 										<button
 											type="button"
-											onclick={() => setEvent(ev.slug)}
-											class="w-full rounded-sm px-2 py-1.5 text-left transition-colors hover:bg-white/5 {selectedEventSlug ===
-											ev.slug
-												? 'bg-white/10'
-												: ''}"
+											onmouseenter={() => (hovered = h.slug)}
+											onmouseleave={() => (hovered = null)}
+											onclick={() => setHouse(h.slug)}
+											class="flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-left text-sm text-ash/75 transition-colors hover:bg-white/5 hover:text-gold-bright"
 										>
-											<span class="flex items-center gap-2">
-												<span
-													class="h-2 w-2 shrink-0 rounded-full"
-													style={`background:${eventColor(ev.type)}`}
-												></span>
-												<span class="min-w-0 flex-1 truncate text-sm text-ash/80">{ev.name}</span>
-												{#if ev.year != null}
-													<span class="shrink-0 text-xs text-ash/40">{formatYear(ev.year)}</span>
-												{/if}
-											</span>
-											{#if !ev.location}
-												<span class="mt-0.5 block pl-4 text-[10px] text-ash/30 uppercase">
-													approx. location
-												</span>
-											{/if}
+											<span
+												class="h-2.5 w-2.5 shrink-0 rounded-full"
+												style={`background:${colorFor(h.slug)}`}
+											></span>
+											<span class="font-display tracking-wide">{h.name}</span>
+											<span class="ml-auto truncate text-xs text-ash/40">{h.region ?? ''}</span>
 										</button>
 									</li>
 								{/each}
 							</ul>
-							{#if locatedCount < events.length}
-								<p class="mt-3 text-[10px] text-ash/30">
-									{locatedCount} of {events.length} placed precisely; others show near the region.
-								</p>
-							{/if}
-						{/if}
-					</div>
-				{/if}
-			{:else}
-				<div class="p-4">
-					<p class="font-display text-xs tracking-[0.3em] text-ash/50 uppercase">The Great Houses</p>
-					<ul class="mt-3 flex flex-col gap-0.5">
-						{#each houses.filter((h) => HOUSE_COLORS[h.slug]) as h (h.slug)}
-							<li>
-								<button
-									type="button"
-									onmouseenter={() => (hovered = h.slug)}
-									onmouseleave={() => (hovered = null)}
-									onclick={() => setHouse(h.slug)}
-									class="flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-left text-sm text-ash/75 transition-colors hover:bg-white/5 hover:text-gold-bright"
-								>
-									<span
-										class="h-2.5 w-2.5 shrink-0 rounded-full"
-										style={`background:${colorFor(h.slug)}`}
-									></span>
-									<span class="font-display tracking-wide">{h.name}</span>
-									<span class="ml-auto truncate text-xs text-ash/40">{h.region ?? ''}</span>
-								</button>
-							</li>
-						{/each}
-					</ul>
-					<p class="mt-3 text-xs text-ash/40">Select a region to see its house and events.</p>
+							<p class="mt-3 text-xs text-ash/40">Select a region to see its house and events.</p>
+						</div>
+					{/if}
 				</div>
-			{/if}
-		</aside>
+			</aside>
+		{:else}
+			<button
+				type="button"
+				onclick={() => (menuOpen = true)}
+				class="pointer-events-auto rounded-sm border border-white/10 bg-ink-soft/85 px-4 py-2 font-display text-xs tracking-[0.2em] text-ash uppercase shadow-2xl backdrop-blur-sm transition-colors hover:text-gold"
+			>
+				{activeHouse ? `House ${activeHouse.name}` : 'Houses'}
+			</button>
+		{/if}
 	</div>
 </div>
 
@@ -457,6 +480,14 @@
 	:global(.leaflet-container) {
 		background: #0a0c0e;
 		font-family: inherit;
+	}
+	/* Remove the focus-box rectangle that appears around a tapped region/map. */
+	:global(.leaflet-container:focus),
+	:global(.leaflet-container:focus-visible),
+	:global(.leaflet-interactive:focus),
+	:global(.leaflet-interactive:focus-visible),
+	:global(.leaflet-interactive) {
+		outline: none;
 	}
 	:global(.seat-pin) {
 		display: block;
