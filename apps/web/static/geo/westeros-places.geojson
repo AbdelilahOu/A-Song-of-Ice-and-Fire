@@ -1,0 +1,2657 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "King's Landing",
+        "slug": "kings-landing",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.0782, 3.9536] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hayford Castle",
+        "slug": "hayford-castle",
+        "type": "castle",
+        "size": 3,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [18.8026, 4.488] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rosby",
+        "slug": "rosby",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.987, 4.6212] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sow's Horn",
+        "slug": "sows-horn",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.8563, 6.4153] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tumbleton",
+        "slug": "tumbleton",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.7912, 2.3364] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Heart",
+        "slug": "high-heart",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.2378, 8.4524] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Duskendale",
+        "slug": "duskendale",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.9191, 5.8383] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Antlers",
+        "slug": "antlers",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.6015, 7.3147] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stokeworth",
+        "slug": "stokeworth",
+        "type": "castle",
+        "size": 3,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [19.5922, 5.072] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Harrenhal",
+        "slug": "harrenhal",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.901, 8.38] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stoney Sept",
+        "slug": "stoney-sept",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [13.9948, 6.1373] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Acorn Hall",
+        "slug": "acorn-hall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.0509, 8.0156] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pinkmaiden",
+        "slug": "pinkmaiden",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [12.9856, 7.6044] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Riverrun",
+        "slug": "riverrun",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [13.3127, 9.492] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Raventree Hall",
+        "slug": "raventree-hall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [15.7983, 8.8379] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Darry",
+        "slug": "darry",
+        "type": "castle",
+        "size": 3,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [17.3775, 9.3705] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wickenden",
+        "slug": "wickenden",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.6386, 9.0902] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maidenpool",
+        "slug": "maidenpool",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.1715, 8.2305] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rook's Rest",
+        "slug": "rooks-rest",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [22.0685, 7.268] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dyre Den",
+        "slug": "dyre-den",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [23.9187, 9.1836] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Whispers",
+        "slug": "the-whispers",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.5822, 8.4828] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dragonstone",
+        "slug": "dragonstone",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.3485, 7.0531] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sharp Point",
+        "slug": "sharp-point",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [23.8066, 5.7448] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stonedance",
+        "slug": "stonedance",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.2084, 4.9505] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Haystack Hall",
+        "slug": "haystack-hall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [22.7413, 1.5491] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bronzegate",
+        "slug": "bronzegate",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [22.0404, 1.2968] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Felwood",
+        "slug": "felwood",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.2835, 0.4278] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Storm's End",
+        "slug": "storms-end",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [22.7132, -0.6562] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Griffin's Roost",
+        "slug": "griffins-roost",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.8162, -1.2636] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rain House",
+        "slug": "rain-house",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [25.0587, -1.9924] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Greenstone",
+        "slug": "greenstone",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.7971, -4.0856] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Weeping Tower",
+        "slug": "weeping-tower",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [22.8721, -4.5902] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mistwood",
+        "slug": "mistwood",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [23.0029, -3.8053] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stonehelm",
+        "slug": "stonehelm",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.0407, -3.2352] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Crow's Nest",
+        "slug": "crows-nest",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.078, -2.2447] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Grandview",
+        "slug": "grandview",
+        "type": "town",
+        "size": 4,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [20.2837, -1.1795] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Summerhall",
+        "slug": "summerhall",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.4989, -1.7027] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blackhaven",
+        "slug": "blackhaven",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [17.8634, -2.8521] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fawnton",
+        "slug": "fawnton",
+        "type": "town",
+        "size": 4,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [18.6017, 0.9231] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Grassy Vale",
+        "slug": "grassy-vale",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [17.1346, 0.1755] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wyl",
+        "slug": "wyl",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [17.7793, -4.2912] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ghaston Grey",
+        "slug": "ghaston-grey",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.3212, -6.1694] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Yronwood",
+        "slug": "yronwood",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.8729, -6.9263] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vulture's Roost",
+        "slug": "vultures-roost",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.8545, -4.8051] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nightsong",
+        "slug": "nightsong",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [13.6117, -4.2725] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ashford",
+        "slug": "ashford",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.6489, -1.8523] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lort Harroway's Town",
+        "slug": "lort-harroways-town",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [16.8823, 9.7256] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Old Stone Bridge Inn",
+        "slug": "old-stone-bridge-inn",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [20.3981, 5.0417] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Saltpans",
+        "slug": "saltpans",
+        "type": "town",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.181, 9.0995] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Quiet Isle",
+        "slug": "quiet-isle",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.2277, 8.9313] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cider Hall",
+        "slug": "cider-hall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [12.9389, -1.3009] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Highgarden",
+        "slug": "highgarden",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [10.7149, -2.768] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Horn Hill",
+        "slug": "horn-hill",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [10.799, -4.4407] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Brightwater Keep",
+        "slug": "brightwater-keep",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [7.9209, -4.5248] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bandallon",
+        "slug": "bandallon",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [6.4538, -4.4127] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Honeyholt",
+        "slug": "honeyholt",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [8.1545, -5.4312] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oldtown",
+        "slug": "oldtown",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [7.7527, -6.5712] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blackcrown",
+        "slug": "blackcrown",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [6.351, -7.244] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Three Towers",
+        "slug": "three-towers",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [6.9958, -8.0664] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Uplands",
+        "slug": "uplands",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [9.9206, -6.8235] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sunflower Hall",
+        "slug": "sunflower-hall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [9.145, -9.7297] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blackmont",
+        "slug": "blackmont",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [12.1446, -6.6273] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Hermitage",
+        "slug": "high-hermitage",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [12.2007, -7.3468] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Starfall",
+        "slug": "starfall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [11.4438, -8.1692] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sandstone",
+        "slug": "sandstone",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [13.6678, -9.4307] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Skyreach",
+        "slug": "skyreach",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.163, -7.2908] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kingsgrave",
+        "slug": "kingsgrave",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.3312, -6.0293] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hellholt",
+        "slug": "hellholt",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.2001, -9.141] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vaith",
+        "slug": "vaith",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.3958, -9.3092] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Salt Shore",
+        "slug": "salt-shore",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.3583, -10.1128] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Godsgrace",
+        "slug": "godsgrace",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.4704, -8.5429] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Tor",
+        "slug": "the-tor",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.6388, -7.2908] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ghost Hill",
+        "slug": "ghost-hill",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [23.8346, -7.4496] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lemonwood",
+        "slug": "lemonwood",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [23.9841, -9.5895] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sunspear",
+        "slug": "sunspear",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.5915, -8.9261] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Planky Town",
+        "slug": "planky-town",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.0495, -9.1036] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tall Trees Town",
+        "slug": "tall-trees-town",
+        "type": "town",
+        "size": 4,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [12.6399, -24.9659] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Longtable",
+        "slug": "longtable",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.1303, -0.2263] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bitterbridge",
+        "slug": "bitterbridge",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.42, 0.7362] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Goldengrove",
+        "slug": "goldengrove",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [10.7756, 0.7362] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Red Lake",
+        "slug": "red-lake",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [8.7759, 1.4744] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Old Oak",
+        "slug": "old-oak",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [7.3368, -0.1889] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Crakehall",
+        "slug": "crakehall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [6.5426, 2.2967] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cornfield",
+        "slug": "cornfield",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [8.5423, 2.8948] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Silverhill",
+        "slug": "silverhill",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [10.7102, 3.633] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Clegane Hall",
+        "slug": "clegane-hall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [9.159, 4.0535] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tarbeck Hall",
+        "slug": "tarbeck-hall",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [7.0285, 4.0161] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lannisport",
+        "slug": "lannisport",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [7.3649, 5.2215] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Feastfires",
+        "slug": "feastfires",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [5.7016, 4.9973] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kayce",
+        "slug": "kayce",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [5.9725, 5.5393] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sarsfield",
+        "slug": "sarsfield",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [8.9628, 6.455] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Deep Den",
+        "slug": "deep-den",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [11.2709, 5.0533] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hornvale",
+        "slug": "hornvale",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [11.056, 5.9411] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wayfarer's Rest",
+        "slug": "wayfarers-rest",
+        "type": "castle",
+        "size": 3,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [11.9811, 7.9969] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Castamere",
+        "slug": "castamere",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [8.4208, 7.6978] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Crag",
+        "slug": "the-crag",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [8.4021, 8.8098] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Banefort",
+        "slug": "banefort",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [8.4021, 10.1554] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ashemark",
+        "slug": "ashemark",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [9.1403, 8.0156] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stone Hedge",
+        "slug": "stone-hedge",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [15.2049, 9.4359] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fairmarket",
+        "slug": "fairmarket",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.8031, 11.4824] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oldstones",
+        "slug": "oldstones",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [13.8126, 11.9776] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Bloody Gate",
+        "slug": "the-bloody-gate",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.8678, 11.6693] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Eyrie",
+        "slug": "the-eyrie",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.9426, 12.2112] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Strongsong",
+        "slug": "strongsong",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.3073, 13.8278] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Heart's Home",
+        "slug": "hearts-home",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.8397, 13.7905] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Redfort",
+        "slug": "redfort",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.6807, 10.9497] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ironoaks",
+        "slug": "ironoaks",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [22.6245, 12.3701] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Old Anchor",
+        "slug": "old-anchor",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [23.7832, 12.7065] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Runestone",
+        "slug": "runestone",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.9699, 12.4075] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gulltown",
+        "slug": "gulltown",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.6616, 11.5291] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Longbow Hall",
+        "slug": "longbow-hall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [23.9888, 14.5847] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Palisade Village",
+        "slug": "palisade-village",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [17.5411, 11.146] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stone Mill",
+        "slug": "stone-mill",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [13.2239, 8.5388] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Water Gardens",
+        "slug": "water-gardens",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [24.7223, -8.7205] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Shandystone",
+        "slug": "shandystone",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [22.6198, -8.5242] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tower of Joy",
+        "slug": "tower-of-joy",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.3686, -5.1322] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Snakewood",
+        "slug": "snakewood",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [22.4282, 15.4725] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Coldwater",
+        "slug": "coldwater",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.9049, 16.6312] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Seagard",
+        "slug": "seagard",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [13.0744, 13.2952] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Twins",
+        "slug": "the-twins",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [13.2986, 14.4726] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "", "slug": "", "type": "castle", "size": 3, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [13.1678, 14.3138] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Greywater Watch",
+        "slug": "greywater-watch",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.2424, 17.0143] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Moat Cailin",
+        "slug": "moat-cailin",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.8218, 20.1541] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sisterton",
+        "slug": "sisterton",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.8026, 18.2852] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oldcastle",
+        "slug": "oldcastle",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.1298, 19.229] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "White Harbor",
+        "slug": "white-harbor",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.9337, 21.3689] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ramsgate",
+        "slug": "ramsgate",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [21.2041, 22.4715] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Widow's Watch",
+        "slug": "widows-watch",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.2224, 21.9015] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hornwood",
+        "slug": "hornwood",
+        "type": "castle",
+        "size": 3,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [18.9801, 24.9198] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Dreadfort",
+        "slug": "the-dreadfort",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.9146, 27.3587] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cerwyn",
+        "slug": "cerwyn",
+        "type": "castle",
+        "size": 3,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [14.5975, 26.0598] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Winterfell",
+        "slug": "winterfell",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.5602, 26.6111] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Deepwood Motte",
+        "slug": "deepwood-motte",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [10.6588, 29.3584] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Last Hearth",
+        "slug": "last-hearth",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.3679, 31.3301] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Karhold",
+        "slug": "karhold",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [23.6384, 29.4986] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Castle Black",
+        "slug": "castle-black",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.854, 34.8904] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Shadow Tower",
+        "slug": "shadow-tower",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.359, 34.9932] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Lys", "slug": "lys", "type": "city", "size": 5, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [31.6933, -8.9961] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tyrosh",
+        "slug": "tyrosh",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [28.5115, -3.5623] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Myr", "slug": "myr", "type": "city", "size": 5, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [33.6977, -2.5905] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pentos",
+        "slug": "pentos",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [31.128, 4.6328] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ghoyan Drohe",
+        "slug": "ghoyan-drohe",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [35.0994, 5.5953] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Norvos",
+        "slug": "norvos",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [38.3139, 8.7631] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Evenfall Hall",
+        "slug": "evenfall-hall",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [24.7994, 0.2713] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Braavos",
+        "slug": "braavos",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [30.9761, 16.2411] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lorath",
+        "slug": "lorath",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [36.2278, 14.7833] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Qohor",
+        "slug": "qohor",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [44.9555, 4.7473] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ar Noy",
+        "slug": "ar-noy",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [42.0214, 2.5794] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ny Sar",
+        "slug": "ny-sar",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [38.7134, 3.3083] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Sorrows (Chroyane)",
+        "slug": "the-sorrows-chroyane",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [40.4889, -1.8873] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Selhorys",
+        "slug": "selhorys",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [41.2364, -5.3448] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Valysar",
+        "slug": "valysar",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [41.1803, -7.1389] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Volon Therys",
+        "slug": "volon-therys",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [41.9279, -8.2603] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sar Mell",
+        "slug": "sar-mell",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [42.3764, -8.1668] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Volantis",
+        "slug": "volantis",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [43.638, -9.2134] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "", "slug": "", "type": "ruin", "size": 2, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [53.9917, -11.3626] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queenscrown",
+        "slug": "queenscrown",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.1531, 33.7877] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Crofters' Village",
+        "slug": "crofters-village",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [14.1303, 26.8261] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tumbledown Tower",
+        "slug": "tumbledown-tower",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [14.191, 27.6017] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pennytree",
+        "slug": "pennytree",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [15.5133, 8.9266] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parchments",
+        "slug": "parchments",
+        "type": "castle",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [24.2761, 1.402] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Baelish Keep",
+        "slug": "baelish-keep",
+        "type": "castle",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [25.4372, 15.9584] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fishing Village",
+        "slug": "fishing-village",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [5.1409, 24.4806] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mantarys",
+        "slug": "mantarys",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [56.5334, -11.6476] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "", "slug": "", "type": "ruin", "size": 2, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [52.889, -16.3012] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oros",
+        "slug": "oros",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [55.8699, -18.5346] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Elyria",
+        "slug": "elyria",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [57.7295, -13.7689] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tolos",
+        "slug": "tolos",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [59.1312, -13.2175] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ghozai",
+        "slug": "ghozai",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [60.6917, -15.2733] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Velos",
+        "slug": "velos",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [61.0468, -17.1329] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "", "slug": "", "type": "ruin", "size": 2, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [60.6637, -16.5255] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Astapor",
+        "slug": "astapor",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [64.9154, -15.2359] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Yunkai",
+        "slug": "yunkai",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [65.8499, -11.2458] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Meereen",
+        "slug": "meereen",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [67.1301, -9.6105] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vaes Dothrak",
+        "slug": "vaes-dothrak",
+        "type": "city",
+        "size": 5,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [64.9388, -1.1444] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Old Ghis",
+        "slug": "old-ghis",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [65.8078, -19.7026] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "New Ghis",
+        "slug": "new-ghis",
+        "type": "city",
+        "size": 5,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [66.7703, -23.5713] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Zamettar",
+        "slug": "zamettar",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [64.6398, -31.2057] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Yeen",
+        "slug": "yeen",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [65.691, -33.9764] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gogossos",
+        "slug": "gogossos",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [61.3925, -33.6026] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Flint's Finger",
+        "slug": "flints-finger",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [8.0167, 18.5118] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Barrowton",
+        "slug": "barrowton",
+        "type": "town",
+        "size": 4,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [11.2031, 21.8571] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Torrhen's Square",
+        "slug": "torrhens-square",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [11.8666, 24.6044] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bhorash",
+        "slug": "bhorash",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [62.1938, -10.1301] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pyke",
+        "slug": "pyke",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [7.5489, 11.0605] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ten Towers",
+        "slug": "ten-towers",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [9.1311, 12.1373] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Faircastle",
+        "slug": "faircastle",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [7.004, 7.3511] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tyria",
+        "slug": "tyria",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [55.3839, -19.9672] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Valyria",
+        "slug": "valyria",
+        "type": "ruin",
+        "size": 2,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [54.7536, -22.2322] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "", "slug": "", "type": "ruin", "size": 2, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [57.7999, -21.9302] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "", "slug": "", "type": "ruin", "size": 2, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [52.3179, -20.7747] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "", "slug": "", "type": "ruin", "size": 2, "confirmed": true },
+      "geometry": { "type": "Point", "coordinates": [54.0839, -24.6417] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Qarth",
+        "slug": "qarth",
+        "type": "city",
+        "size": 5,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [87.984, -34.5882] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Eastwatch-by-the-Sea",
+        "slug": "eastwatch-by-the-sea",
+        "type": "castle",
+        "size": 3,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.7206, 34.7616] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mole's Town",
+        "slug": "moles-town",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [18.882, 34.6007] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Westwatch-by-the-Bridge",
+        "slug": "westwatch-by-the-bridge",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.0506, 34.9932] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sentinel Stand",
+        "slug": "sentinel-stand",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.7094, 35.0165] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Greyguard",
+        "slug": "greyguard",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [17.0738, 34.9278] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stonedoor",
+        "slug": "stonedoor",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [17.4149, 35.0539] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hoarfrost Hill",
+        "slug": "hoarfrost-hill",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [17.6532, 35.0399] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Icemark",
+        "slug": "icemark",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [17.9335, 34.9932] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nightfort",
+        "slug": "nightfort",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.1671, 34.9511] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Deep Lake",
+        "slug": "deep-lake",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.354, 34.9137] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queensgate",
+        "slug": "queensgate",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.569, 34.8717] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oakensheild",
+        "slug": "oakensheild",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.1343, 34.811] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Woodswatch-by-the-Pool",
+        "slug": "woodswatch-by-the-pool",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.3726, 34.7969] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sable Hall",
+        "slug": "sable-hall",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.681, 34.7502] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rimegate",
+        "slug": "rimegate",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.966, 34.7315] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Long Barrow",
+        "slug": "long-barrow",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.1902, 34.6941] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Torches",
+        "slug": "torches",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.4098, 34.6708] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Greenguard",
+        "slug": "greenguard",
+        "type": "ruin",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.5734, 34.6287] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Craster's Keep",
+        "slug": "crasters-keep",
+        "type": "town",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [17.6252, 36.2967] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fist of the First Men",
+        "slug": "fist-of-the-first-men",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.2422, 37.2125] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oxcross",
+        "slug": "oxcross",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [8.1124, 5.9691] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Golden Tooth",
+        "slug": "golden-tooth",
+        "type": "castle",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [10.6448, 7.296] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pendric Hills",
+        "slug": "pendric-hills",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [9.1777, 8.7631] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nunn's Deep",
+        "slug": "nunns-deep",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [9.8131, 9.5013] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pebbleton",
+        "slug": "pebbleton",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [7.0433, 11.5858] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hammerhorn",
+        "slug": "hammerhorn",
+        "type": "castle",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [6.0979, 11.855] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nagga's Ribs",
+        "slug": "naggas-ribs",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [6.6166, 12.1307] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Castle Goodbrother",
+        "slug": "castle-goodbrother",
+        "type": "castle",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [6.8201, 12.3145] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Crossroads Inn",
+        "slug": "crossroads-inn",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [17.3401, 9.819] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Brindlewood",
+        "slug": "brindlewood",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [18.6507, 5.5276] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rushing Falls",
+        "slug": "rushing-falls",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [16.3964, 7.9221] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tumblers Falls",
+        "slug": "tumblers-falls",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [14.6489, 6.8475] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hollow Hill",
+        "slug": "hollow-hill",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [13.4061, 6.5204] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mummer's Ford",
+        "slug": "mummers-ford",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [12.7426, 7.24] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sherrer",
+        "slug": "sherrer",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [12.752, 7.0437] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wendish Town",
+        "slug": "wendish-town",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [12.5838, 7.0811] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lord Goodbrook's Village",
+        "slug": "lord-goodbrooks-village",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [14.6583, 8.679] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sallydance",
+        "slug": "sallydance",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [14.2004, 8.7631] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lady of the Leaves",
+        "slug": "lady-of-the-leaves",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [14.0322, 9.0061] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lord Lychester's Keep",
+        "slug": "lord-lychesters-keep",
+        "type": "castle",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [14.6116, 9.4266] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Inn of the Kneeling Man",
+        "slug": "inn-of-the-kneeling-man",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [14.8732, 10.2769] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "BWB hideout",
+        "slug": "bwb-hideout",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [16.0132, 10.361] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lhazarene Village",
+        "slug": "lhazarene-village",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [73.0358, -7.1389] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lord Hewett's Town",
+        "slug": "lord-hewetts-town",
+        "type": "town",
+        "size": 1,
+        "confirmed": false
+      },
+      "geometry": { "type": "Point", "coordinates": [7.6867, -1.9224] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Haunted Forest",
+        "slug": "the-haunted-forest",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [16.9817, 37.7716] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lonely Hills",
+        "slug": "lonely-hills",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [19.0985, 29.1154] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hornwood",
+        "slug": "hornwood",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.7961, 25.4866] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wolfswood",
+        "slug": "wolfswood",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [15.7343, 28.8508] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kingswood",
+        "slug": "kingswood",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [20.3837, 2.0128] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rainwood",
+        "slug": "rainwood",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [22.8029, -3.0524] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Dothraki Sea",
+        "slug": "the-dothraki-sea",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [61.2455, -1.2758] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Forest of Qohor",
+        "slug": "forest-of-qohor",
+        "type": "landmark",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [49.1495, 6.0574] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Whitetree",
+        "slug": "whitetree",
+        "type": "town",
+        "size": 1,
+        "confirmed": true
+      },
+      "geometry": { "type": "Point", "coordinates": [18.1671, 35.409] }
+    }
+  ]
+}

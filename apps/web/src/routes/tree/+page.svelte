@@ -66,8 +66,9 @@
 </svelte:head>
 
 <div class="relative h-full w-full overflow-hidden">
-	<!-- Top controls: view toggle + house selector -->
-	<div class="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between gap-3 p-3">
+	<!-- Top controls: view toggle + house selector. The holder is transparent so
+	     content scrolls beneath it; the content keeps its top padding (pt-44). -->
+	<div class="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between gap-3 bg-transparent p-3">
 		<div
 			class="pointer-events-auto flex gap-1 rounded-sm border border-white/10 bg-ink-soft/80 p-1 backdrop-blur-sm"
 		>
