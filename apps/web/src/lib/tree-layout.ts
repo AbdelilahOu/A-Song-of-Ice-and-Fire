@@ -34,8 +34,7 @@ export type PositionedNode = TreeNodeInput & {
 
 // "drop" links connect a child to the parent (or couple) it is laid out
 // under; they can be drawn as right-angle elbows. "cross" links point to a
-// parent placed elsewhere on the canvas (a spouse who married into another
-// tree, a parent from another house) and should be drawn as curves.
+// parent placed elsewhere on the canvas and should be drawn as curves.
 export type ParentLink = {
   fromX: number;
   fromY: number;
@@ -45,7 +44,7 @@ export type ParentLink = {
 };
 
 // "couple" links join two spouses placed side by side; "distant" links join
-// spouses laid out in different units, possibly far apart.
+// spouses laid out in different units.
 export type MarriageLink = {
   x1: number;
   y1: number;
@@ -81,16 +80,46 @@ const PAD = 60;
 const ROOT_GAP = H_GAP * 3;
 const GROUP_GAP = 220;
 
+// Horizontal extent of a subtree at each depth below the unit, relative to
+// the unit's center. Packing siblings by these per-row extents (instead of a
+// single bounding box) lets a narrow branch sit close to its siblings when
+// their deeper rows do not actually collide.
+type Shape = { left: number[]; right: number[] };
+
 type Unit = {
   members: number[];
   children: Unit[];
   depth: number;
   centerX: number;
-  subtreeW: number;
-  childrenW: number;
+  childOffsets: number[];
+  shape: Shape;
 };
 
 const coupleKey = (a: number, b: number) => (a < b ? `${a}-${b}` : `${b}-${a}`);
+
+// Minimum shift that keeps `shape` clear of the accumulated contour by `gap`
+// on every row both occupy. Rows the contour does not reach are free, so a
+// short subtree can slide under a taller sibling's overhang.
+function shiftToClear(accRight: number[], shape: Shape, gap: number): number {
+  let dx = -Infinity;
+  const depths = Math.min(accRight.length, shape.left.length);
+  for (let d = 0; d < depths; d++) {
+    dx = Math.max(dx, accRight[d] + gap - shape.left[d]);
+  }
+  return isFinite(dx) ? dx : 0;
+}
+
+function mergeContour(accLeft: number[], accRight: number[], shape: Shape, dx: number) {
+  for (let d = 0; d < shape.left.length; d++) {
+    if (d < accLeft.length) {
+      accLeft[d] = Math.min(accLeft[d], shape.left[d] + dx);
+      accRight[d] = Math.max(accRight[d], shape.right[d] + dx);
+    } else {
+      accLeft.push(shape.left[d] + dx);
+      accRight.push(shape.right[d] + dx);
+    }
+  }
+}
 
 export function layoutTree(
   rawNodes: TreeNodeInput[],
@@ -151,8 +180,8 @@ export function layoutTree(
       children: [],
       depth: 0,
       centerX: 0,
-      subtreeW: 0,
-      childrenW: 0,
+      childOffsets: [],
+      shape: { left: [], right: [] },
     };
     for (const m of members) unitOfMember.set(m, unit);
     units.push(unit);
@@ -180,13 +209,22 @@ export function layoutTree(
     u.children.sort((a, b) => bornYear(a.members[0]) - bornYear(b.members[0]));
   }
 
-  // Roots are laid out grouped by house so each house's lineage forms its own
-  // cluster instead of interleaving with the others.
+  // Childless single members whose spouse is placed inside a tree are
+  // "satellites": instead of floating at the top as roots of their own
+  // house group, they are positioned next to their spouse on the same row.
   const roots = units.filter((u) => !parentOfUnit.has(u));
+  const satellites: Unit[] = [];
+  const treeRoots: Unit[] = [];
+  for (const r of roots) {
+    const spouses = r.members.length === 1 ? (marriagesOf.get(r.members[0]) ?? []) : [];
+    if (r.children.length === 0 && spouses.length > 0) satellites.push(r);
+    else treeRoots.push(r);
+  }
+
   const houseKeyOf = (u: Unit) => nodeById.get(u.members[0])?.house?.slug ?? null;
 
   const rootsByHouse = new Map<string | null, Unit[]>();
-  for (const r of roots) {
+  for (const r of treeRoots) {
     const k = houseKeyOf(r);
     const arr = rootsByHouse.get(k);
     if (arr) arr.push(r);
@@ -222,39 +260,44 @@ export function layoutTree(
   };
 
   const measure = (u: Unit) => {
-    const own = unitWidth(u);
+    const half = unitWidth(u) / 2;
     if (u.children.length === 0) {
-      u.childrenW = 0;
-      u.subtreeW = own;
+      u.shape = { left: [-half], right: [half] };
+      u.childOffsets = [];
       return;
     }
-    let cw = 0;
-    u.children.forEach((c, i) => {
+    const accLeft: number[] = [];
+    const accRight: number[] = [];
+    const offsets: number[] = [];
+    for (const c of u.children) {
       measure(c);
-      cw += c.subtreeW + (i > 0 ? H_GAP : 0);
-    });
-    u.childrenW = cw;
-    u.subtreeW = Math.max(own, cw);
+      const dx = accRight.length === 0 ? 0 : shiftToClear(accRight, c.shape, H_GAP);
+      offsets.push(dx);
+      mergeContour(accLeft, accRight, c.shape, dx);
+    }
+    // Center the parent between its first and last child.
+    const mid = (offsets[0] + offsets[offsets.length - 1]) / 2;
+    u.childOffsets = offsets.map((o) => o - mid);
+    const left = [-half];
+    const right = [half];
+    for (let d = 0; d < accLeft.length; d++) {
+      left.push(accLeft[d] - mid);
+      right.push(accRight[d] - mid);
+    }
+    u.shape = { left, right };
   };
 
-  const place = (u: Unit, x0: number, depth: number) => {
+  const place = (u: Unit, centerX: number, depth: number) => {
     u.depth = depth;
-    u.centerX = x0 + u.subtreeW / 2;
-    if (u.children.length > 0) {
-      let cx = x0 + (u.subtreeW - u.childrenW) / 2;
-      for (const c of u.children) {
-        place(c, cx, depth + 1);
-        cx += c.subtreeW + H_GAP;
-      }
-    }
+    u.centerX = centerX;
     placeMembers(u);
+    u.children.forEach((c, i) => place(c, centerX + u.childOffsets[i], depth + 1));
   };
 
   let cursorX = 0;
   const rawGroups: { houseSlug: string | null; minX: number; maxX: number }[] = [];
   groupKeys.forEach((key, gi) => {
     if (gi > 0) cursorX += GROUP_GAP;
-    const groupStart = cursorX;
     const groupRoots = rootsByHouse.get(key)!;
     // Real trees first, loose single members trailing after them.
     groupRoots.sort((a, b) => {
@@ -262,14 +305,87 @@ export function layoutTree(
       const bt = b.children.length > 0 ? 0 : 1;
       return at - bt || bornYear(a.members[0]) - bornYear(b.members[0]);
     });
-    groupRoots.forEach((r, i) => {
-      if (i > 0) cursorX += ROOT_GAP;
+    // Contour-pack the roots of a group against each other as well, so a
+    // narrow tree can tuck into the unused rows of a wide one.
+    const accLeft: number[] = [];
+    const accRight: number[] = [];
+    const offsets: number[] = [];
+    for (const r of groupRoots) {
       measure(r);
-      place(r, cursorX, 0);
-      cursorX += r.subtreeW;
-    });
-    rawGroups.push({ houseSlug: key, minX: groupStart, maxX: cursorX });
+      const dx = accRight.length === 0 ? 0 : shiftToClear(accRight, r.shape, ROOT_GAP);
+      offsets.push(dx);
+      mergeContour(accLeft, accRight, r.shape, dx);
+    }
+    const minL = Math.min(...accLeft);
+    const maxR = Math.max(...accRight);
+    groupRoots.forEach((r, i) => place(r, cursorX - minL + offsets[i], 0));
+    rawGroups.push({ houseSlug: key, minX: cursorX, maxX: cursorX + (maxR - minL) });
+    cursorX += maxR - minL;
   });
+
+  // Place satellites next to their spouse on the spouse's row, sliding along
+  // the row to the nearest free slot.
+  const rowIntervals = new Map<number, { x1: number; x2: number }[]>();
+  for (const p of positions.values()) {
+    const iv = { x1: p.x, x2: p.x + NODE_W };
+    const row = rowIntervals.get(p.depth);
+    if (row) row.push(iv);
+    else rowIntervals.set(p.depth, [iv]);
+  }
+
+  const findSlot = (depth: number, desired: number): number => {
+    const row = [...(rowIntervals.get(depth) ?? [])].sort((a, b) => a.x1 - b.x1);
+    if (row.length === 0) return desired;
+    const merged: { x1: number; x2: number }[] = [];
+    for (const iv of row) {
+      const last = merged[merged.length - 1];
+      if (last && iv.x1 <= last.x2 + H_GAP) last.x2 = Math.max(last.x2, iv.x2);
+      else merged.push({ ...iv });
+    }
+    let best = desired;
+    let bestDist = Infinity;
+    const consider = (lo: number, hi: number) => {
+      if (hi - lo < NODE_W) return;
+      const x = Math.min(Math.max(desired, lo), hi - NODE_W);
+      const dist = Math.abs(x - desired);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = x;
+      }
+    };
+    consider(merged[0].x1 - 1e7, merged[0].x1 - H_GAP);
+    for (let i = 0; i < merged.length - 1; i++) {
+      consider(merged[i].x2 + H_GAP, merged[i + 1].x1 - H_GAP);
+    }
+    consider(merged[merged.length - 1].x2 + H_GAP, merged[merged.length - 1].x2 + 1e7);
+    return best;
+  };
+
+  const placedSatellites = satellites
+    .map((sat) => {
+      const spouseId = (marriagesOf.get(sat.members[0]) ?? []).find((s) => positions.has(s));
+      return { sat, spouseId };
+    })
+    .filter((s): s is { sat: Unit; spouseId: number } => s.spouseId != null)
+    .sort((a, b) => positions.get(a.spouseId)!.x - positions.get(b.spouseId)!.x);
+
+  for (const { sat, spouseId } of placedSatellites) {
+    const sp = positions.get(spouseId)!;
+    const spouseUnit = unitOfMember.get(spouseId)!;
+    let unitRight = sp.x + NODE_W;
+    for (const m of spouseUnit.members) {
+      const p = positions.get(m);
+      if (p) unitRight = Math.max(unitRight, p.x + NODE_W);
+    }
+    const x = findSlot(sp.depth, unitRight + H_GAP);
+    positions.set(sat.members[0], { x, y: sp.y, depth: sp.depth });
+    sat.depth = sp.depth;
+    sat.centerX = x + NODE_W / 2;
+    const iv = { x1: x, x2: x + NODE_W };
+    const row = rowIntervals.get(sp.depth);
+    if (row) row.push(iv);
+    else rowIntervals.set(sp.depth, [iv]);
+  }
 
   let minX = Infinity;
   let maxX = -Infinity;
@@ -320,7 +436,8 @@ export function layoutTree(
     let fromX: number;
     let fromY: number;
     const other = ps.find((id) => id !== anchorId);
-    if (other != null && unitOfMember.get(other) === anchorUnit) {
+    const otherAdjacent = other != null && unitOfMember.get(other) === anchorUnit;
+    if (otherAdjacent) {
       const b = nodePos.get(other)!;
       fromX = (anchor.x + b.x) / 2 + NODE_W / 2;
       fromY = Math.max(anchor.y, b.y) + NODE_H;
@@ -335,6 +452,19 @@ export function layoutTree(
       toY: child.y,
       kind,
     });
+
+    // The other biological parent lives in a different unit (a remarriage or
+    // a satellite spouse): keep that descent visible with a cross link.
+    if (other != null && !otherAdjacent) {
+      const b = nodePos.get(other)!;
+      parentLinks.push({
+        fromX: b.x + NODE_W / 2,
+        fromY: b.y + NODE_H,
+        toX: child.x + NODE_W / 2,
+        toY: child.y,
+        kind: "cross",
+      });
+    }
   }
 
   const marriageLinks: MarriageLink[] = [];
