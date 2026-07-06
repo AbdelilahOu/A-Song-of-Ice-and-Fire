@@ -88,6 +88,10 @@ type Shape = { left: number[]; right: number[] };
 
 type Unit = {
   members: number[];
+  // The member the unit was created for; `members` can gain married-in
+  // satellites on either side, so members[0] is not reliable for house or
+  // birth-order decisions.
+  primary: number;
   children: Unit[];
   depth: number;
   centerX: number;
@@ -177,6 +181,7 @@ export function layoutTree(
     const members = spouse != null ? [n.id, spouse] : [n.id];
     const unit: Unit = {
       members,
+      primary: n.id,
       children: [],
       depth: 0,
       centerX: 0,
@@ -206,22 +211,36 @@ export function layoutTree(
   }
 
   for (const u of units) {
-    u.children.sort((a, b) => bornYear(a.members[0]) - bornYear(b.members[0]));
+    u.children.sort((a, b) => bornYear(a.primary) - bornYear(b.primary));
   }
 
-  // Childless single members whose spouse is placed inside a tree are
-  // "satellites": instead of floating at the top as roots of their own
-  // house group, they are positioned next to their spouse on the same row.
+  // Childless single members whose spouse lives in another unit are
+  // "satellites": instead of floating at the top as roots of their own house
+  // group, they are absorbed into the spouse's unit so the layout reserves
+  // room for them directly beside their partner.
   const roots = units.filter((u) => !parentOfUnit.has(u));
-  const satellites: Unit[] = [];
   const treeRoots: Unit[] = [];
   for (const r of roots) {
     const spouses = r.members.length === 1 ? (marriagesOf.get(r.members[0]) ?? []) : [];
-    if (r.children.length === 0 && spouses.length > 0) satellites.push(r);
-    else treeRoots.push(r);
+    if (r.children.length > 0 || spouses.length === 0) {
+      treeRoots.push(r);
+      continue;
+    }
+    const satId = r.members[0];
+    const target = spouses.map((s) => unitOfMember.get(s)!).find((u) => u !== r);
+    if (!target) {
+      treeRoots.push(r);
+      continue;
+    }
+    const spouseId = spouses.find((s) => unitOfMember.get(s) === target)!;
+    const spouseIdx = target.members.indexOf(spouseId);
+    if (spouseIdx === 0) target.members.unshift(satId);
+    else if (spouseIdx === target.members.length - 1) target.members.push(satId);
+    else target.members.splice(spouseIdx + 1, 0, satId);
+    unitOfMember.set(satId, target);
   }
 
-  const houseKeyOf = (u: Unit) => nodeById.get(u.members[0])?.house?.slug ?? null;
+  const houseKeyOf = (u: Unit) => nodeById.get(u.primary)?.house?.slug ?? null;
 
   const rootsByHouse = new Map<string | null, Unit[]>();
   for (const r of treeRoots) {
@@ -236,26 +255,16 @@ export function layoutTree(
     return a.localeCompare(b);
   });
 
-  const unitWidth = (u: Unit) => (u.members.length === 2 ? NODE_W * 2 + COUPLE_GAP : NODE_W);
+  const unitWidth = (u: Unit) => u.members.length * NODE_W + (u.members.length - 1) * COUPLE_GAP;
 
   const positions = new Map<number, { x: number; y: number; depth: number }>();
 
   const placeMembers = (u: Unit) => {
     const y = u.depth * (NODE_H + V_GAP);
-    if (u.members.length === 2) {
-      const leftX = u.centerX - (NODE_W * 2 + COUPLE_GAP) / 2;
-      positions.set(u.members[0], { x: leftX, y, depth: u.depth });
-      positions.set(u.members[1], {
-        x: leftX + NODE_W + COUPLE_GAP,
-        y,
-        depth: u.depth,
-      });
-    } else {
-      positions.set(u.members[0], {
-        x: u.centerX - NODE_W / 2,
-        y,
-        depth: u.depth,
-      });
+    let x = u.centerX - unitWidth(u) / 2;
+    for (const m of u.members) {
+      positions.set(m, { x, y, depth: u.depth });
+      x += NODE_W + COUPLE_GAP;
     }
   };
 
@@ -303,7 +312,7 @@ export function layoutTree(
     groupRoots.sort((a, b) => {
       const at = a.children.length > 0 ? 0 : 1;
       const bt = b.children.length > 0 ? 0 : 1;
-      return at - bt || bornYear(a.members[0]) - bornYear(b.members[0]);
+      return at - bt || bornYear(a.primary) - bornYear(b.primary);
     });
     // Contour-pack the roots of a group against each other as well, so a
     // narrow tree can tuck into the unused rows of a wide one.
@@ -322,70 +331,6 @@ export function layoutTree(
     rawGroups.push({ houseSlug: key, minX: cursorX, maxX: cursorX + (maxR - minL) });
     cursorX += maxR - minL;
   });
-
-  // Place satellites next to their spouse on the spouse's row, sliding along
-  // the row to the nearest free slot.
-  const rowIntervals = new Map<number, { x1: number; x2: number }[]>();
-  for (const p of positions.values()) {
-    const iv = { x1: p.x, x2: p.x + NODE_W };
-    const row = rowIntervals.get(p.depth);
-    if (row) row.push(iv);
-    else rowIntervals.set(p.depth, [iv]);
-  }
-
-  const findSlot = (depth: number, desired: number): number => {
-    const row = [...(rowIntervals.get(depth) ?? [])].sort((a, b) => a.x1 - b.x1);
-    if (row.length === 0) return desired;
-    const merged: { x1: number; x2: number }[] = [];
-    for (const iv of row) {
-      const last = merged[merged.length - 1];
-      if (last && iv.x1 <= last.x2 + H_GAP) last.x2 = Math.max(last.x2, iv.x2);
-      else merged.push({ ...iv });
-    }
-    let best = desired;
-    let bestDist = Infinity;
-    const consider = (lo: number, hi: number) => {
-      if (hi - lo < NODE_W) return;
-      const x = Math.min(Math.max(desired, lo), hi - NODE_W);
-      const dist = Math.abs(x - desired);
-      if (dist < bestDist) {
-        bestDist = dist;
-        best = x;
-      }
-    };
-    consider(merged[0].x1 - 1e7, merged[0].x1 - H_GAP);
-    for (let i = 0; i < merged.length - 1; i++) {
-      consider(merged[i].x2 + H_GAP, merged[i + 1].x1 - H_GAP);
-    }
-    consider(merged[merged.length - 1].x2 + H_GAP, merged[merged.length - 1].x2 + 1e7);
-    return best;
-  };
-
-  const placedSatellites = satellites
-    .map((sat) => {
-      const spouseId = (marriagesOf.get(sat.members[0]) ?? []).find((s) => positions.has(s));
-      return { sat, spouseId };
-    })
-    .filter((s): s is { sat: Unit; spouseId: number } => s.spouseId != null)
-    .sort((a, b) => positions.get(a.spouseId)!.x - positions.get(b.spouseId)!.x);
-
-  for (const { sat, spouseId } of placedSatellites) {
-    const sp = positions.get(spouseId)!;
-    const spouseUnit = unitOfMember.get(spouseId)!;
-    let unitRight = sp.x + NODE_W;
-    for (const m of spouseUnit.members) {
-      const p = positions.get(m);
-      if (p) unitRight = Math.max(unitRight, p.x + NODE_W);
-    }
-    const x = findSlot(sp.depth, unitRight + H_GAP);
-    positions.set(sat.members[0], { x, y: sp.y, depth: sp.depth });
-    sat.depth = sp.depth;
-    sat.centerX = x + NODE_W / 2;
-    const iv = { x1: x, x2: x + NODE_W };
-    const row = rowIntervals.get(sp.depth);
-    if (row) row.push(iv);
-    else rowIntervals.set(sp.depth, [iv]);
-  }
 
   let minX = Infinity;
   let maxX = -Infinity;
@@ -436,7 +381,10 @@ export function layoutTree(
     let fromX: number;
     let fromY: number;
     const other = ps.find((id) => id !== anchorId);
-    const otherAdjacent = other != null && unitOfMember.get(other) === anchorUnit;
+    const otherAdjacent =
+      other != null &&
+      unitOfMember.get(other) === anchorUnit &&
+      Math.abs(anchorUnit.members.indexOf(other) - anchorUnit.members.indexOf(anchorId)) === 1;
     if (otherAdjacent) {
       const b = nodePos.get(other)!;
       fromX = (anchor.x + b.x) / 2 + NODE_W / 2;
@@ -476,7 +424,11 @@ export function layoutTree(
     const key = coupleKey(m.spouseAId, m.spouseBId);
     if (seen.has(key)) continue;
     seen.add(key);
-    const sameUnit = unitOfMember.get(m.spouseAId) === unitOfMember.get(m.spouseBId);
+    const unitA = unitOfMember.get(m.spouseAId);
+    const adjacent =
+      unitA != null &&
+      unitA === unitOfMember.get(m.spouseBId) &&
+      Math.abs(unitA.members.indexOf(m.spouseAId) - unitA.members.indexOf(m.spouseBId)) === 1;
     const left = a.x < b.x ? a : b;
     const right = a.x < b.x ? b : a;
     const inset = (NODE_W - FRAME_W) / 2;
@@ -486,7 +438,7 @@ export function layoutTree(
       x2: right.x + inset,
       y2: right.y + FRAME_H / 2,
       isSecret: m.isSecret,
-      kind: sameUnit ? "couple" : "distant",
+      kind: adjacent ? "couple" : "distant",
     });
   }
 
