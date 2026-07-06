@@ -64,7 +64,7 @@
 	let pinchMidX = 0;
 	let pinchMidY = 0;
 
-	const clampScale = (s: number) => Math.min(1.8, Math.max(0.3, s));
+	const clampScale = (s: number) => Math.min(1.8, Math.max(0.2, s));
 
 	function zoomAt(next: number, clientX: number, clientY: number) {
 		if (!canvasEl) return;
@@ -170,6 +170,20 @@
 		const midY = (l.fromY + l.toY) / 2;
 		return `M ${l.fromX} ${l.fromY} V ${midY} H ${l.toX} V ${l.toY}`;
 	}
+
+	function crossCurve(l: { fromX: number; fromY: number; toX: number; toY: number }) {
+		const dy = Math.max(50, Math.min(180, Math.abs(l.toY - l.fromY) / 2));
+		return `M ${l.fromX} ${l.fromY} C ${l.fromX} ${l.fromY + dy}, ${l.toX} ${l.toY - dy}, ${l.toX} ${l.toY}`;
+	}
+
+	function marriageCurve(m: { x1: number; y1: number; x2: number; y2: number }) {
+		const dx = Math.max(40, Math.min(220, (m.x2 - m.x1) / 3));
+		return `M ${m.x1} ${m.y1} C ${m.x1 + dx} ${m.y1}, ${m.x2 - dx} ${m.y2}, ${m.x2} ${m.y2}`;
+	}
+
+	function houseLabel(slug: string) {
+		return `House ${slug.charAt(0).toUpperCase()}${slug.slice(1)}`;
+	}
 </script>
 
 <div class="relative h-full w-full overflow-hidden" bind:clientWidth={vw} bind:clientHeight={vh}>
@@ -213,20 +227,53 @@
 					height={layout.height}
 				>
 					{#each layout.parentLinks as l, i (i)}
-						<path d={elbow(l)} fill="none" stroke="rgba(159,178,191,0.32)" stroke-width="1.5" />
+						{#if l.kind === 'cross'}
+							<path
+								d={crossCurve(l)}
+								fill="none"
+								stroke="rgba(159,178,191,0.18)"
+								stroke-width="1.25"
+								stroke-dasharray="5 5"
+							/>
+						{:else}
+							<path d={elbow(l)} fill="none" stroke="rgba(159,178,191,0.32)" stroke-width="1.5" />
+						{/if}
 					{/each}
 					{#each layout.marriageLinks as m, i (i)}
-						<line
-							x1={m.x1}
-							y1={m.y1}
-							x2={m.x2}
-							y2={m.y2}
-							stroke="rgba(200,162,74,0.5)"
-							stroke-width="2"
-							stroke-dasharray={m.isSecret ? '4 4' : ''}
-						/>
+						{#if m.kind === 'distant'}
+							<path
+								d={marriageCurve(m)}
+								fill="none"
+								stroke="rgba(200,162,74,0.28)"
+								stroke-width="1.5"
+								stroke-dasharray={m.isSecret ? '4 4' : '7 7'}
+							/>
+						{:else}
+							<line
+								x1={m.x1}
+								y1={m.y1}
+								x2={m.x2}
+								y2={m.y2}
+								stroke="rgba(200,162,74,0.5)"
+								stroke-width="2"
+								stroke-dasharray={m.isSecret ? '4 4' : ''}
+							/>
+						{/if}
 					{/each}
 				</svg>
+
+				{#if layout.groups.length > 1}
+					{#each layout.groups as g (g.houseSlug ?? '__ungrouped__')}
+						{#if g.houseSlug}
+							<div
+								class="pointer-events-none absolute top-2 text-center font-display text-sm tracking-[0.35em] text-ash/35 uppercase"
+								style="left:{g.x}px; width:{g.width}px;"
+							>
+								{houseLabel(g.houseSlug)}
+							</div>
+						{/if}
+					{/each}
+				{/if}
 
 				{#each layout.nodes as node (node.id)}
 					<button
@@ -308,6 +355,10 @@
 			</div>
 			<div class="mt-0.5 flex items-center gap-2">
 				<span class="inline-block h-px w-5 bg-[rgba(200,162,74,0.7)]"></span> Marriage
+			</div>
+			<div class="mt-0.5 flex items-center gap-2">
+				<span class="inline-block w-5 border-t border-dashed border-[rgba(159,178,191,0.6)]"></span>
+				Tie across trees
 			</div>
 		</div>
 	{/if}
