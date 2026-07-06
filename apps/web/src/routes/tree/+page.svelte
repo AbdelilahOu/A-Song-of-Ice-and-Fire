@@ -127,7 +127,7 @@
 		</label>
 	</div>
 
-	<div class="box-border h-full w-full pt-44">
+	<div class="box-border h-full w-full">
 		{#if view === 'chronicle'}
 			<Chronicle slugs={houseSlugs} {selectedMember} onSelect={selectMember} />
 		{:else}
